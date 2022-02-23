@@ -5,8 +5,8 @@ import utils.Vector;
 import java.awt.*;
 
 public class Circle extends Figure {
-    public Circle(int size, Vector position, Vector direction, Color color) {
-        super(size, position, direction, color);
+    public Circle(int size, Vector position, Vector direction) {
+        super(size, position, direction, Color.BLUE);
     }
     
     @Override

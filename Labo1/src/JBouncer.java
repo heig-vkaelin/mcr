@@ -33,12 +33,10 @@ public class JBouncer extends JPanel implements ActionListener {
         // - vitesse random entre 2 limites
         int NB_SHAPES = 10;
         for (int i = 0; i < NB_SHAPES; i++) {
-            figures.add(new Circle(20, new Vector(20, 20), new Vector(4, 4),
-                    Color.BLUE));
+            figures.add(new Circle(20, new Vector(20, 20), new Vector(4, 4)));
         }
         for (int i = 0; i < NB_SHAPES; i++) {
-            figures.add(new Square(20, new Vector(40, 40), new Vector(6, 7),
-                    Color.ORANGE));
+            figures.add(new Square(20, new Vector(40, 40), new Vector(6, 7)));
         }
     }
     

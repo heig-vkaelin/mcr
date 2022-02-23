@@ -5,8 +5,8 @@ import utils.Vector;
 import java.awt.*;
 
 public class Square extends Figure {
-    public Square(int size, Vector position, Vector direction, Color color) {
-        super(size, position, direction, color);
+    public Square(int size, Vector position, Vector direction) {
+        super(size, position, direction, Color.ORANGE);
     }
     
     @Override
