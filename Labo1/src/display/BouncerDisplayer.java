@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
 public class BouncerDisplayer implements Displayer {
     private final JPanel panel;
     private final JFrame frame;
-    BufferedImage image;
+    private final BufferedImage image;
     
     private static BouncerDisplayer instance;
     private static final int INITIAL_WIDTH = 640;
@@ -24,17 +24,13 @@ public class BouncerDisplayer implements Displayer {
         
         frame.setVisible(true);
         
-        image = createImage();
+        image = (BufferedImage) panel.createImage(getWidth(), getHeight());
     }
     
     public static BouncerDisplayer getInstance() {
         if (instance == null)
             instance = new BouncerDisplayer();
         return instance;
-    }
-    
-    private BufferedImage createImage() {
-        return (BufferedImage) panel.createImage(getWidth(), getHeight());
     }
     
     @Override
@@ -55,7 +51,11 @@ public class BouncerDisplayer implements Displayer {
     @Override
     public void repaint() {
         panel.getGraphics().drawImage(image, 0, 0, null);
-        image = createImage();
+        
+        // Remise à 0 du contenu affiché
+        Graphics2D g = getGraphics();
+        g.clearRect(0, 0, getWidth(), getHeight());
+        g.dispose();
     }
     
     @Override

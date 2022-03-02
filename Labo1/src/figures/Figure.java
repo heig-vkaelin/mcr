@@ -1,16 +1,15 @@
 package figures;
 
 import display.BouncerDisplayer;
+import utils.Utils;
 
 import java.awt.*;
-import java.util.Random;
 
 public abstract class Figure {
     private final int size;
     private int x, y;
     private int dx, dy;
     private final Color color;
-    private static final Random random = new Random();
     
     private static final int MAX_SIZE = 30;
     private static final int MIN_SIZE = 8;
@@ -23,13 +22,13 @@ public abstract class Figure {
     public Figure(Color color) {
         this.color = color;
         
-        size = random.nextInt(MAX_SIZE - MIN_SIZE) + MIN_SIZE;
+        size = Utils.getRandomBetween(MIN_SIZE, MAX_SIZE);
         
-        x = random.nextInt(BouncerDisplayer.getInstance().getWidth() - size);
-        y = random.nextInt(BouncerDisplayer.getInstance().getHeight() - size);
+        x = Utils.getRandom(BouncerDisplayer.getInstance().getWidth() - size);
+        y = Utils.getRandom(BouncerDisplayer.getInstance().getHeight() - size);
         
-        dx = random.nextInt((MAX_SPEED + 1) - MIN_SPEED) + MIN_SPEED;
-        dy = random.nextInt((MAX_SPEED + 1) - MIN_SPEED) + MIN_SPEED;
+        dx = Utils.getRandomBetween(MIN_SPEED, MAX_SPEED + 1);
+        dy = Utils.getRandomBetween(MIN_SPEED, MAX_SPEED + 1);
     }
     
     public int getSize() {
@@ -65,6 +64,9 @@ public abstract class Figure {
     
     public void draw() {
         Graphics2D g = BouncerDisplayer.getInstance().getGraphics();
+        
+        // TODO: voir si utile
+//        g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         g.setColor(getColor());
         g.fill(getShape());
     }
