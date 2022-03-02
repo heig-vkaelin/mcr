@@ -1,16 +1,17 @@
 package figures;
 
-import display.JBouncer;
+import display.BouncerDisplayer;
 
 import java.awt.*;
 
 public class Circle extends Figure {
-    public Circle(JBouncer bouncer) {
+    public Circle(BouncerDisplayer bouncer) {
         super(bouncer, Color.BLUE);
     }
     
     @Override
-    public void draw(Graphics g) {
-        g.fillOval(getX(), getY(), getSize(), getSize());
+    public void draw() {
+        BouncerDisplayer.getInstance().getGraphics()
+                .fillOval(getX(), getY(), getSize(), getSize());
     }
 }

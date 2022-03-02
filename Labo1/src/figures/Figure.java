@@ -1,6 +1,6 @@
 package figures;
 
-import display.JBouncer;
+import display.BouncerDisplayer;
 
 import java.awt.*;
 import java.util.Random;
@@ -20,7 +20,7 @@ public abstract class Figure {
     /**
      * Constructeur d'une Figure avec des propriétés aléatoires
      */
-    public Figure(JBouncer display, Color color) {
+    public Figure(BouncerDisplayer display, Color color) {
         this.color = color;
         
         size = random.nextInt(MAX_SIZE - MIN_SIZE) + MIN_SIZE;
@@ -50,7 +50,7 @@ public abstract class Figure {
     }
     
     public void move() {
-        JBouncer display = JBouncer.getInstance();
+        BouncerDisplayer display = BouncerDisplayer.getInstance();
         x += dx;
         y += dy;
         
@@ -64,5 +64,5 @@ public abstract class Figure {
         }
     }
     
-    public abstract void draw(Graphics g);
+    public abstract void draw();
 }
