@@ -3,6 +3,7 @@ package figures;
 import display.BouncerDisplayer;
 
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import java.util.Random;
 
 public abstract class Figure {
@@ -20,7 +21,7 @@ public abstract class Figure {
     /**
      * Constructeur d'une Figure avec des propriétés aléatoires
      */
-    public Figure(BouncerDisplayer display, Color color) {
+    public Figure(Color color) {
         this.color = color;
         
         size = random.nextInt(MAX_SIZE - MIN_SIZE) + MIN_SIZE;
@@ -64,5 +65,11 @@ public abstract class Figure {
         }
     }
     
-    public abstract void draw();
+    public void draw() {
+        Graphics2D g = BouncerDisplayer.getInstance().getGraphics();
+        g.setColor(getColor());
+        g.fill(getShape());
+    }
+    
+    public abstract Shape getShape();
 }
