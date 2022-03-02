@@ -3,7 +3,6 @@ package figures;
 import display.BouncerDisplayer;
 
 import java.awt.*;
-import java.awt.geom.Rectangle2D;
 import java.util.Random;
 
 public abstract class Figure {
@@ -26,9 +25,8 @@ public abstract class Figure {
         
         size = random.nextInt(MAX_SIZE - MIN_SIZE) + MIN_SIZE;
         
-        // TODO: add display.getWidth() / getHeight()
-        x = random.nextInt(640 - size);
-        y = random.nextInt(480 - size);
+        x = random.nextInt(BouncerDisplayer.getInstance().getWidth() - size);
+        y = random.nextInt(BouncerDisplayer.getInstance().getHeight() - size);
         
         dx = random.nextInt((MAX_SPEED + 1) - MIN_SPEED) + MIN_SPEED;
         dy = random.nextInt((MAX_SPEED + 1) - MIN_SPEED) + MIN_SPEED;

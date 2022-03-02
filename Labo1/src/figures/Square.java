@@ -1,7 +1,5 @@
 package figures;
 
-import display.BouncerDisplayer;
-
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
@@ -12,7 +10,6 @@ public class Square extends Figure {
     
     @Override
     public Shape getShape() {
-        return new Rectangle2D.Double(getX(), getY(), getSize(),
-                getSize());
+        return new Rectangle2D.Double(getX(), getY(), getSize(), getSize());
     }
 }
