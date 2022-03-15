@@ -1,4 +1,6 @@
 import display.BouncerDisplayer;
+import factories.FillShapeFactory;
+import factories.OutlineShapeFactory;
 import figures.Bouncable;
 import figures.Circle;
 import figures.Square;
@@ -21,8 +23,8 @@ public class App implements ActionListener {
         bouncers = new LinkedList<>();
         for (int i = 0; i < NB_SHAPES; i++) {
             // TODO: change renderer here
-            bouncers.add(new Circle(new FillShapeRenderer()));
-            bouncers.add(new Square(new OutlineShapeRenderer()));
+            bouncers.add(FillShapeFactory.getInstance().createCircle());
+            bouncers.add(OutlineShapeFactory.getInstance().createSquare());
         }
     }
     
