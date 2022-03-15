@@ -10,6 +10,8 @@ import rendering.OutlineShapeRenderer;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -18,14 +20,34 @@ public class App implements ActionListener {
     private static final int NB_SHAPES = 10;
     
     public App() {
+        bouncers = new LinkedList<>();
+        
         BouncerDisplayer.getInstance().setTitle("Bouncers");
         
-        bouncers = new LinkedList<>();
-        for (int i = 0; i < NB_SHAPES; i++) {
-            // TODO: change renderer here
-            bouncers.add(FillShapeFactory.getInstance().createCircle());
-            bouncers.add(OutlineShapeFactory.getInstance().createSquare());
-        }
+        BouncerDisplayer.getInstance().addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent keyEvent) {
+                switch (keyEvent.getKeyCode()) {
+                    case KeyEvent.VK_E:
+                        bouncers.clear();
+                        break;
+                    case KeyEvent.VK_B:
+                        for (int i = 0; i < NB_SHAPES; i++) {
+                            bouncers.add(OutlineShapeFactory.getInstance().createCircle());
+                            bouncers.add(OutlineShapeFactory.getInstance().createSquare());
+                        }
+                        break;
+                    case KeyEvent.VK_F:
+                        for (int i = 0; i < NB_SHAPES; i++) {
+                            bouncers.add(FillShapeFactory.getInstance().createCircle());
+                            bouncers.add(FillShapeFactory.getInstance().createSquare());
+                        }
+                        break;
+                    case KeyEvent.VK_Q:
+                        System.exit(0);
+                }
+            }
+        });
     }
     
     public void run(int delta) {

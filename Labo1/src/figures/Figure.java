@@ -15,7 +15,7 @@ public abstract class Figure implements Bouncable {
     
     private static final int MAX_SIZE = 30;
     private static final int MIN_SIZE = 8;
-    private static final int MAX_SPEED = 7;
+    private static final int MAX_SPEED = 8;
     private static final int MIN_SPEED = -7;
     
     /**
@@ -30,8 +30,8 @@ public abstract class Figure implements Bouncable {
         x = Utils.getRandom(BouncerDisplayer.getInstance().getWidth() - size);
         y = Utils.getRandom(BouncerDisplayer.getInstance().getHeight() - size);
         
-        dx = Utils.getRandomBetween(MIN_SPEED, MAX_SPEED + 1);
-        dy = Utils.getRandomBetween(MIN_SPEED, MAX_SPEED + 1);
+        dx = Utils.getRandomBetween(MIN_SPEED, MAX_SPEED);
+        dy = Utils.getRandomBetween(MIN_SPEED, MAX_SPEED);
     }
     
     public int getSize() {
