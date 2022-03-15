@@ -1,11 +1,13 @@
 package figures;
 
+import rendering.Renderable;
+
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
 public class Square extends Figure {
-    public Square() {
-        super(Color.ORANGE);
+    public Square(Renderable renderer) {
+        super(renderer, Color.ORANGE);
     }
     
     @Override

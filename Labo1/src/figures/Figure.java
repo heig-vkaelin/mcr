@@ -1,14 +1,16 @@
 package figures;
 
 import display.BouncerDisplayer;
+import rendering.Renderable;
 import utils.Utils;
 
 import java.awt.*;
 
-public abstract class Figure {
+public abstract class Figure implements Bouncable {
     private final int size;
     private int x, y;
     private int dx, dy;
+    private final Renderable renderer;
     private final Color color;
     
     private static final int MAX_SIZE = 30;
@@ -19,7 +21,8 @@ public abstract class Figure {
     /**
      * Constructeur d'une Figure avec des propriétés aléatoires
      */
-    public Figure(Color color) {
+    public Figure(Renderable renderer, Color color) {
+        this.renderer = renderer;
         this.color = color;
         
         size = Utils.getRandomBetween(MIN_SIZE, MAX_SIZE);
@@ -63,12 +66,12 @@ public abstract class Figure {
     }
     
     public void draw() {
-        Graphics2D g = BouncerDisplayer.getInstance().getGraphics();
-        
-        // TODO: voir si utile
-//        g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-        g.setColor(getColor());
-        g.fill(getShape());
+        renderer.display(BouncerDisplayer.getInstance().getGraphics(), this);
+    }
+    
+    @Override
+    public Renderable getRenderer() {
+        return renderer;
     }
     
     public abstract Shape getShape();

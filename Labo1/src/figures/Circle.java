@@ -1,11 +1,13 @@
 package figures;
 
+import rendering.Renderable;
+
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 
 public class Circle extends Figure {
-    public Circle() {
-        super(Color.BLUE);
+    public Circle(Renderable renderer) {
+        super(renderer, Color.BLUE);
     }
     
     @Override

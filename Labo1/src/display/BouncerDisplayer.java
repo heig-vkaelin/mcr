@@ -2,12 +2,13 @@ package display;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
 import java.awt.image.BufferedImage;
 
 public class BouncerDisplayer implements Displayer {
     private final JPanel panel;
     private final JFrame frame;
-    private final BufferedImage image;
+    private BufferedImage image;
     
     private static BouncerDisplayer instance;
     private static final int INITIAL_WIDTH = 640;
@@ -50,16 +51,24 @@ public class BouncerDisplayer implements Displayer {
     
     @Override
     public void repaint() {
-        panel.getGraphics().drawImage(image, 0, 0, null);
+        Graphics2D g = (Graphics2D) panel.getGraphics();
+        g.setBackground(Color.RED);
+        g.drawImage(image, 0, 0, Color.RED, null);
         
         // Remise à 0 du contenu affiché
-        Graphics2D g = getGraphics();
-        g.clearRect(0, 0, getWidth(), getHeight());
-        g.dispose();
+//        Graphics2D g = getGraphics();
+//        g.clearRect(0, 0, getWidth(), getHeight());
+//        g.dispose();
+        image = (BufferedImage) panel.createImage(getWidth(), getHeight());
     }
     
     @Override
     public void setTitle(String title) {
         frame.setTitle(title);
+    }
+    
+    @Override
+    public void addKeyListener(KeyAdapter ka) {
+        frame.addKeyListener(ka);
     }
 }
