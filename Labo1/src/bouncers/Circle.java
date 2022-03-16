@@ -1,13 +1,13 @@
 package bouncers;
 
-import rendering.Renderable;
+import rendering.Renderer;
 
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 
 public abstract class Circle extends Bouncer {
-    public Circle(Renderable renderer) {
-        super(renderer, Color.BLUE);
+    public Circle(Renderer renderer) {
+        super(renderer);
     }
     
     @Override

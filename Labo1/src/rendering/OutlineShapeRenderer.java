@@ -4,7 +4,7 @@ import bouncers.Bouncable;
 
 import java.awt.*;
 
-public class OutlineShapeRenderer implements Renderable {
+public class OutlineShapeRenderer implements Renderer {
     private static final int STROKE_WIDTH = 2;
     
     @Override

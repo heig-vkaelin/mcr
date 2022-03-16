@@ -1,13 +1,13 @@
 package bouncers;
 
-import rendering.Renderable;
+import rendering.Renderer;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
 public abstract class Square extends Bouncer {
-    public Square(Renderable renderer) {
-        super(renderer, Color.ORANGE);
+    public Square(Renderer renderer) {
+        super(renderer);
     }
     
     @Override

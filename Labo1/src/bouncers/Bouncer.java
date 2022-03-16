@@ -1,7 +1,7 @@
 package bouncers;
 
 import display.BouncerDisplayer;
-import rendering.Renderable;
+import rendering.Renderer;
 import utils.Utils;
 
 import java.awt.*;
@@ -10,8 +10,7 @@ public abstract class Bouncer implements Bouncable {
     private final int size;
     private int x, y;
     private int dx, dy;
-    private final Renderable renderer;
-    private final Color color;
+    private final Renderer renderer;
     
     private static final int MAX_SIZE = 30;
     private static final int MIN_SIZE = 8;
@@ -19,11 +18,10 @@ public abstract class Bouncer implements Bouncable {
     private static final int MIN_SPEED = -7;
     
     /**
-     * Constructeur d'une Figure avec des propriétés aléatoires
+     * Constructeur d'un Bouncer avec des propriétés aléatoires
      */
-    public Bouncer(Renderable renderer, Color color) {
+    public Bouncer(Renderer renderer) {
         this.renderer = renderer;
-        this.color = color;
         
         size = Utils.getRandomBetween(MIN_SIZE, MAX_SIZE);
         
@@ -46,10 +44,6 @@ public abstract class Bouncer implements Bouncable {
         return y;
     }
     
-    public Color getColor() {
-        return color;
-    }
-    
     public void move() {
         BouncerDisplayer display = BouncerDisplayer.getInstance();
         x += dx;
@@ -69,10 +63,7 @@ public abstract class Bouncer implements Bouncable {
         renderer.display(BouncerDisplayer.getInstance().getGraphics(), this);
     }
     
-    @Override
-    public Renderable getRenderer() {
-        return renderer;
-    }
+    public abstract Color getColor();
     
     public abstract Shape getShape();
 }
