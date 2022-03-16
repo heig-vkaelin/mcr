@@ -1,6 +1,6 @@
 package rendering;
 
-import figures.Bouncable;
+import bouncers.Bouncable;
 
 import java.awt.*;
 

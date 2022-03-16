@@ -1,4 +1,4 @@
-package figures;
+package bouncers;
 
 import rendering.Renderable;
 

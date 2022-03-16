@@ -1,7 +1,7 @@
 package factories;
 
-import figures.Circle;
-import figures.Square;
+import bouncers.Circle;
+import bouncers.Square;
 import rendering.FillShapeRenderer;
 
 public class FillShapeFactory extends ShapeFactory {

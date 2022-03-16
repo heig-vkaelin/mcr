@@ -1,4 +1,4 @@
-package figures;
+package bouncers;
 
 import display.BouncerDisplayer;
 import rendering.Renderable;
@@ -6,7 +6,7 @@ import utils.Utils;
 
 import java.awt.*;
 
-public abstract class Figure implements Bouncable {
+public abstract class Bouncer implements Bouncable {
     private final int size;
     private int x, y;
     private int dx, dy;
@@ -21,7 +21,7 @@ public abstract class Figure implements Bouncable {
     /**
      * Constructeur d'une Figure avec des propriétés aléatoires
      */
-    public Figure(Renderable renderer, Color color) {
+    public Bouncer(Renderable renderer, Color color) {
         this.renderer = renderer;
         this.color = color;
         

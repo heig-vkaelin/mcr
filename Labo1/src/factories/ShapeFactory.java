@@ -1,7 +1,7 @@
 package factories;
 
-import figures.Circle;
-import figures.Square;
+import bouncers.Circle;
+import bouncers.Square;
 
 public abstract class ShapeFactory {
     public abstract Circle createCircle();

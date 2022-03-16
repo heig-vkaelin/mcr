@@ -1,11 +1,7 @@
 import display.BouncerDisplayer;
 import factories.FillShapeFactory;
 import factories.OutlineShapeFactory;
-import figures.Bouncable;
-import figures.Circle;
-import figures.Square;
-import rendering.FillShapeRenderer;
-import rendering.OutlineShapeRenderer;
+import bouncers.Bouncable;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
