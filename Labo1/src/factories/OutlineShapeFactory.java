@@ -1,8 +1,9 @@
 package factories;
 
 import bouncers.Circle;
+import bouncers.OutlineCircle;
+import bouncers.OutlineSquare;
 import bouncers.Square;
-import rendering.OutlineShapeRenderer;
 
 public class OutlineShapeFactory extends ShapeFactory {
     private static OutlineShapeFactory instance;
@@ -18,11 +19,11 @@ public class OutlineShapeFactory extends ShapeFactory {
     
     @Override
     public Circle createCircle() {
-        return new Circle(new OutlineShapeRenderer());
+        return new OutlineCircle();
     }
     
     @Override
     public Square createSquare() {
-        return new Square(new OutlineShapeRenderer());
+        return new OutlineSquare();
     }
 }

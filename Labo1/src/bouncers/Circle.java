@@ -5,7 +5,7 @@ import rendering.Renderable;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 
-public class Circle extends Bouncer {
+public abstract class Circle extends Bouncer {
     public Circle(Renderable renderer) {
         super(renderer, Color.BLUE);
     }

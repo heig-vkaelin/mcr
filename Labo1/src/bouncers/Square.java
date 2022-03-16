@@ -5,7 +5,7 @@ import rendering.Renderable;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
-public class Square extends Bouncer {
+public abstract class Square extends Bouncer {
     public Square(Renderable renderer) {
         super(renderer, Color.ORANGE);
     }

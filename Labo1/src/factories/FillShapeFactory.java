@@ -1,8 +1,9 @@
 package factories;
 
 import bouncers.Circle;
+import bouncers.FilledCircle;
+import bouncers.FilledSquare;
 import bouncers.Square;
-import rendering.FillShapeRenderer;
 
 public class FillShapeFactory extends ShapeFactory {
     private static FillShapeFactory instance;
@@ -18,11 +19,11 @@ public class FillShapeFactory extends ShapeFactory {
     
     @Override
     public Circle createCircle() {
-        return new Circle(new FillShapeRenderer());
+        return new FilledCircle();
     }
     
     @Override
     public Square createSquare() {
-        return new Square(new FillShapeRenderer());
+        return new FilledSquare();
     }
 }
