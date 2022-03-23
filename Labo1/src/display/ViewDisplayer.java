@@ -94,6 +94,7 @@ public class ViewDisplayer implements Displayer {
      * @return une nouvelle image sur le panel
      */
     private Image createImage() {
-        return panel.createImage(getWidth(), getHeight());
+        // Petit fix afin d'éviter les crashs si l'image a une hauteur nulle
+        return panel.createImage(getWidth(), Math.max(1, getHeight()));
     }
 }
