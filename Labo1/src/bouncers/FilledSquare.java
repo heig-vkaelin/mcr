@@ -1,12 +1,12 @@
 package bouncers;
 
-import rendering.FillShapeRenderer;
+import rendering.FillBouncerRenderer;
 
 import java.awt.*;
 
 public class FilledSquare extends Square {
     public FilledSquare() {
-        super(new FillShapeRenderer());
+        super(new FillBouncerRenderer());
     }
     
     @Override

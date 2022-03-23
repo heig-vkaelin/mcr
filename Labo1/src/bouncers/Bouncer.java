@@ -6,6 +6,13 @@ import utils.Utils;
 
 import java.awt.*;
 
+/**
+ * Classe abstraite représentant les différentes formes mouvantes à afficher dans
+ * l'application.
+ *
+ * @author Lazar Pavicevic
+ * @author Valentin Kaelin
+ */
 public abstract class Bouncer implements Bouncable {
     private final int size;
     private int x, y;
@@ -19,6 +26,8 @@ public abstract class Bouncer implements Bouncable {
     
     /**
      * Constructeur d'un Bouncer avec des propriétés aléatoires
+     *
+     * @param renderer : renderer à utiliser lors de l'affichage du Bouncer
      */
     public Bouncer(Renderer renderer) {
         this.renderer = renderer;

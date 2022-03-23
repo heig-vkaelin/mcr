@@ -1,12 +1,12 @@
 package bouncers;
 
-import rendering.OutlineShapeRenderer;
+import rendering.OutlineBouncerRenderer;
 
 import java.awt.*;
 
 public class OutlineCircle extends Circle {
     public OutlineCircle() {
-        super(new OutlineShapeRenderer());
+        super(new OutlineBouncerRenderer());
     }
     
     @Override

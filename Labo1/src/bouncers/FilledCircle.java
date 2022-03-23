@@ -1,12 +1,12 @@
 package bouncers;
 
-import rendering.FillShapeRenderer;
+import rendering.FillBouncerRenderer;
 
 import java.awt.*;
 
 public class FilledCircle extends Circle {
     public FilledCircle() {
-        super(new FillShapeRenderer());
+        super(new FillBouncerRenderer());
     }
     
     @Override

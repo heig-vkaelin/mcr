@@ -4,7 +4,13 @@ import bouncers.Bouncable;
 
 import java.awt.*;
 
-public class FillShapeRenderer implements Renderer {
+/**
+ * Affiche des Bouncers pleins
+ *
+ * @author Lazar Pavicevic
+ * @author Valentin Kaelin
+ */
+public class FillBouncerRenderer implements Renderer {
     @Override
     public void display(Graphics2D g, Bouncable b) {
         g.setColor(b.getColor());

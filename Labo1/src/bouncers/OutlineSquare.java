@@ -1,12 +1,12 @@
 package bouncers;
 
-import rendering.OutlineShapeRenderer;
+import rendering.OutlineBouncerRenderer;
 
 import java.awt.*;
 
 public class OutlineSquare extends Square {
     public OutlineSquare() {
-        super(new OutlineShapeRenderer());
+        super(new OutlineBouncerRenderer());
     }
     
     @Override
