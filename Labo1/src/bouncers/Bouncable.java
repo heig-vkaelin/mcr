@@ -15,7 +15,7 @@ public interface Bouncable {
     void draw();
     
     /**
-     * Déplace le Bouncer
+     * Déplace le Bouncer, appelée à chaque rafraîchissement
      */
     void move();
     

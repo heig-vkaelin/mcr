@@ -41,18 +41,28 @@ public abstract class Bouncer implements Bouncable {
         dy = Utils.getRandomBetween(MIN_SPEED, MAX_SPEED);
     }
     
+    /**
+     * @return la taille du Bouncer
+     */
     public int getSize() {
         return size;
     }
     
+    /**
+     * @return la position horizontale du Bouncer
+     */
     public int getX() {
         return x;
     }
     
+    /**
+     * @return la position verticale du Bouncer
+     */
     public int getY() {
         return y;
     }
     
+    @Override
     public void move() {
         ViewDisplayer display = ViewDisplayer.getInstance();
         int width = display.getWidth();
@@ -72,6 +82,7 @@ public abstract class Bouncer implements Bouncable {
         }
     }
     
+    @Override
     public void draw() {
         renderer.display(ViewDisplayer.getInstance().getGraphics(), this);
     }
