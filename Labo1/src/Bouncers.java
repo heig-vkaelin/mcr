@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class Bouncers {
     private final List<Bouncable> bouncers = new LinkedList<>();
-    private static final int NB_SHAPES = 10;
+    private static final int NB_BOUNCERS = 10;
     private boolean running = false;
     
     /**
@@ -77,7 +77,7 @@ public class Bouncers {
      * @param factory : la fabrique à utiliser
      */
     private void addBouncers(BouncerFactory factory) {
-        for (int i = 0; i < NB_SHAPES; i++) {
+        for (int i = 0; i < NB_BOUNCERS; i++) {
             bouncers.add(factory.createCircle());
             bouncers.add(factory.createSquare());
         }
