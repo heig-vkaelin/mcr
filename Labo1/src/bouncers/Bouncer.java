@@ -1,6 +1,6 @@
 package bouncers;
 
-import display.BouncerDisplayer;
+import display.ViewDisplayer;
 import rendering.Renderer;
 import utils.Utils;
 
@@ -25,8 +25,8 @@ public abstract class Bouncer implements Bouncable {
         
         size = Utils.getRandomBetween(MIN_SIZE, MAX_SIZE);
         
-        x = Utils.getRandom(BouncerDisplayer.getInstance().getWidth() - size);
-        y = Utils.getRandom(BouncerDisplayer.getInstance().getHeight() - size);
+        x = Utils.getRandom(ViewDisplayer.getInstance().getWidth() - size);
+        y = Utils.getRandom(ViewDisplayer.getInstance().getHeight() - size);
         
         dx = Utils.getRandomBetween(MIN_SPEED, MAX_SPEED);
         dy = Utils.getRandomBetween(MIN_SPEED, MAX_SPEED);
@@ -45,22 +45,26 @@ public abstract class Bouncer implements Bouncable {
     }
     
     public void move() {
-        BouncerDisplayer display = BouncerDisplayer.getInstance();
+        ViewDisplayer display = ViewDisplayer.getInstance();
+        int width = display.getWidth();
+        int height = display.getHeight();
         x += dx;
         y += dy;
         
         // Collisions
-        if (x + size >= display.getWidth() || x <= 0) {
+        if (x >= width - size || x <= 0) {
+            x = x <= 0 ? 0 : width - size;
             dx = -dx;
         }
         
-        if (y + size >= display.getHeight() || y <= 0) {
+        if (y >= height - size || y <= 0) {
+            y = y <= 0 ? 0 : height - size;
             dy = -dy;
         }
     }
     
     public void draw() {
-        renderer.display(BouncerDisplayer.getInstance().getGraphics(), this);
+        renderer.display(ViewDisplayer.getInstance().getGraphics(), this);
     }
     
     public abstract Color getColor();

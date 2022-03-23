@@ -10,6 +10,10 @@ public class Utils {
     }
     
     public static int getRandomBetween(int min, int max) {
-        return random.nextInt(max - min) + min;
+        int result;
+        do {
+            result = random.nextInt(max - min) + min;
+        } while (result == 0);
+        return result;
     }
 }

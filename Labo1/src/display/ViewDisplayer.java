@@ -6,16 +6,16 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.KeyAdapter;
 
-public class BouncerDisplayer implements Displayer {
+public class ViewDisplayer implements Displayer {
     private final JPanel panel;
-    private final JFrame frame;
+    public final JFrame frame;
     private Image image;
     
-    private static BouncerDisplayer instance;
+    private static ViewDisplayer instance;
     private static final int INITIAL_WIDTH = 640;
     private static final int INITIAL_HEIGHT = 480;
     
-    private BouncerDisplayer() {
+    private ViewDisplayer() {
         frame = new JFrame();
         frame.setSize(INITIAL_WIDTH, INITIAL_HEIGHT);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -37,9 +37,9 @@ public class BouncerDisplayer implements Displayer {
         });
     }
     
-    public static BouncerDisplayer getInstance() {
+    public static ViewDisplayer getInstance() {
         if (instance == null)
-            instance = new BouncerDisplayer();
+            instance = new ViewDisplayer();
         return instance;
     }
     
