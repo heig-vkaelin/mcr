@@ -55,13 +55,6 @@ public class ViewDisplayer implements Displayer {
         return instance;
     }
     
-    /**
-     * @return une nouvelle image sur le panel
-     */
-    private Image createImage() {
-        return panel.createImage(getWidth(), getHeight());
-    }
-    
     @Override
     public int getWidth() {
         return panel.getWidth();
@@ -95,5 +88,12 @@ public class ViewDisplayer implements Displayer {
     @Override
     public void addKeyListener(KeyAdapter ka) {
         frame.addKeyListener(ka);
+    }
+    
+    /**
+     * @return une nouvelle image sur le panel
+     */
+    private Image createImage() {
+        return panel.createImage(getWidth(), getHeight());
     }
 }

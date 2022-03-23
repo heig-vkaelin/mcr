@@ -21,15 +21,13 @@ public class Bouncers {
     private boolean running = false;
     
     /**
-     * Ajoute un nombre de Bouncers de la fabrique souhaitée
+     * Démarre l'application
      *
-     * @param factory : la fabrique à utiliser
+     * @param args : arguments passés lors de l'exécution, non utilisés ici
      */
-    private void addBouncers(BouncerFactory factory) {
-        for (int i = 0; i < NB_SHAPES; i++) {
-            bouncers.add(factory.createCircle());
-            bouncers.add(factory.createSquare());
-        }
+    public static void main(String[] args) {
+        int DELTA_MS = 20;
+        new Bouncers().run(DELTA_MS);
     }
     
     /**
@@ -74,12 +72,14 @@ public class Bouncers {
     }
     
     /**
-     * Démarre l'application
+     * Ajoute un nombre de Bouncers de la fabrique souhaitée
      *
-     * @param args : arguments passés lors de l'exécution, non utilisés ici
+     * @param factory : la fabrique à utiliser
      */
-    public static void main(String[] args) {
-        int DELTA_MS = 20;
-        new Bouncers().run(DELTA_MS);
+    private void addBouncers(BouncerFactory factory) {
+        for (int i = 0; i < NB_SHAPES; i++) {
+            bouncers.add(factory.createCircle());
+            bouncers.add(factory.createSquare());
+        }
     }
 }
