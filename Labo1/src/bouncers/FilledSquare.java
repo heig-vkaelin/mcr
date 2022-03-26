@@ -11,8 +11,12 @@ import java.awt.*;
  * @author Valentin Kaelin
  */
 public class FilledSquare extends Square {
+
+    /**
+     * Constructeur d'un FilledSquare
+     */
     public FilledSquare() {
-        super(new FillBouncerRenderer());
+        super(FillBouncerRenderer.getInstance());
     }
     
     @Override

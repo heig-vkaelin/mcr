@@ -12,6 +12,11 @@ import java.awt.geom.Ellipse2D;
  * @author Valentin Kaelin
  */
 public abstract class Circle extends Bouncer {
+    /**
+     * Constructeur d'un Circle
+     *
+     * @param renderer : renderer à utiliser lors de l'affichage du Circle
+     */
     public Circle(Renderer renderer) {
         super(renderer);
     }

@@ -11,8 +11,12 @@ import java.awt.*;
  * @author Valentin Kaelin
  */
 public class FilledCircle extends Circle {
+
+    /**
+     * Constructeur d'un FilledCircle
+     */
     public FilledCircle() {
-        super(new FillBouncerRenderer());
+        super(FillBouncerRenderer.getInstance());
     }
     
     @Override

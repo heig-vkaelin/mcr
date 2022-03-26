@@ -11,10 +11,14 @@ import java.awt.*;
  * @author Valentin Kaelin
  */
 public class OutlineSquare extends Square {
+
+    /**
+     * Constructeur d'un OutlineSquare
+     */
     public OutlineSquare() {
-        super(new OutlineBouncerRenderer());
+        super(OutlineBouncerRenderer.getInstance());
     }
-    
+
     @Override
     public Color getColor() {
         return Color.RED;

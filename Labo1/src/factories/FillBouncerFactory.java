@@ -13,9 +13,11 @@ import bouncers.Square;
  */
 public class FillBouncerFactory extends BouncerFactory {
     private static FillBouncerFactory instance;
-    
-    private FillBouncerFactory() {
-    }
+
+    /**
+     * Constructeur privé afin d'empêcher toute instanciation en dehors de getInstance()
+     */
+    private FillBouncerFactory() {}
     
     /**
      * @return l'instance du Singleton de la fabrique
