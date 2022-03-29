@@ -134,6 +134,9 @@
       <method isAbstract="false" isStatic="false" name="setTitle" returnType="void" view="DEFAULT" visibility="PUBLIC">
         <variable const="false" name="title" type="String"/>
       </method>
+      <method isAbstract="false" isStatic="false" name="addKeyListener" returnType="void" view="DEFAULT" visibility="PUBLIC">
+        <variable const="false" name="ka" type="KeyAdapter"/>
+      </method>
       <method isAbstract="false" isStatic="false" name="createImage" returnType="Image" view="DEFAULT" visibility="PRIVATE"/>
     </entity>
     <entity entityType="CLASS" id="2432" isAbstract="false" name="FillBouncerFactory" visibility="PUBLIC">
@@ -197,7 +200,7 @@
       </method>
     </entity>
     <entity entityType="CLASS" id="2442" isAbstract="false" name="Utils" visibility="PUBLIC">
-      <attribute const="false" defaultValue="" isStatic="true" name="random" type="RANDOM" visibility="PRIVATE"/>
+      <attribute const="false" defaultValue="" isStatic="true" name="RANDOM" type="Random" visibility="PRIVATE"/>
       <method isAbstract="false" isStatic="true" name="getRandom" returnType="int" view="DEFAULT" visibility="PUBLIC">
         <variable const="false" name="max" type="int"/>
       </method>
@@ -349,40 +352,40 @@
     <relationView color="-12566464" relationId="4238">
       <line>
         <point>
-          <x>1291</x>
-          <y>681</y>
+          <x>1221</x>
+          <y>691</y>
         </point>
         <point>
-          <x>1291</x>
-          <y>661</y>
+          <x>1221</x>
+          <y>671</y>
         </point>
         <point>
-          <x>1401</x>
-          <y>661</y>
+          <x>1331</x>
+          <y>671</y>
         </point>
         <point>
-          <x>1401</x>
-          <y>616</y>
+          <x>1331</x>
+          <y>626</y>
         </point>
       </line>
     </relationView>
     <relationView color="-12566464" relationId="4239">
       <line>
         <point>
-          <x>1511</x>
-          <y>681</y>
+          <x>1441</x>
+          <y>691</y>
         </point>
         <point>
-          <x>1511</x>
-          <y>661</y>
+          <x>1441</x>
+          <y>671</y>
         </point>
         <point>
-          <x>1401</x>
-          <y>661</y>
+          <x>1331</x>
+          <y>671</y>
         </point>
         <point>
-          <x>1401</x>
-          <y>616</y>
+          <x>1331</x>
+          <y>626</y>
         </point>
       </line>
     </relationView>
@@ -544,34 +547,34 @@
     </componentView>
     <componentView color="-2079" componentID="2434" displayAttributes="true" displayDefault="true" displayMethods="true">
       <geometry>
-        <x>1310</x>
-        <y>530</y>
+        <x>1240</x>
+        <y>540</y>
         <w>170</w>
         <h>85</h>
       </geometry>
     </componentView>
     <componentView color="-2079" componentID="2433" displayAttributes="true" displayDefault="true" displayMethods="true">
       <geometry>
-        <x>1410</x>
-        <y>680</y>
+        <x>1340</x>
+        <y>690</y>
         <w>210</w>
         <h>130</h>
       </geometry>
     </componentView>
     <componentView color="-2079" componentID="2432" displayAttributes="true" displayDefault="true" displayMethods="true">
       <geometry>
-        <x>1190</x>
-        <y>680</y>
+        <x>1120</x>
+        <y>690</y>
         <w>200</w>
         <h>130</h>
       </geometry>
     </componentView>
     <componentView color="-2079" componentID="2431" displayAttributes="true" displayDefault="true" displayMethods="true">
       <geometry>
-        <x>1180</x>
+        <x>1160</x>
         <y>240</y>
-        <w>220</w>
-        <h>265</h>
+        <w>260</w>
+        <h>280</h>
       </geometry>
     </componentView>
     <componentView color="-2079" componentID="2430" displayAttributes="true" displayDefault="true" displayMethods="true">

@@ -16,8 +16,8 @@ import java.util.List;
  * @author Valentin Kaelin
  */
 public class Bouncers {
-    private final List<Bouncable> bouncers = new LinkedList<>();
     private static final int NB_BOUNCERS = 10;
+    private final List<Bouncable> bouncers = new LinkedList<>();
     private boolean running = false;
     
     /**

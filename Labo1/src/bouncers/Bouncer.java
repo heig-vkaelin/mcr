@@ -14,15 +14,15 @@ import java.awt.*;
  * @author Valentin Kaelin
  */
 public abstract class Bouncer implements Bouncable {
-    private final int size;
-    private int x, y;
-    private int dx, dy;
-    
     private static final int MAX_SIZE = 30;
     private static final int MIN_SIZE = 8;
     private static final int MAX_SPEED = 8;
     private static final int MIN_SPEED = -7;
-    
+
+    private final int size;
+    private int x, y;
+    private int dx, dy;
+
     /**
      * Constructeur d'un Bouncer avec des propriétés aléatoires
      */
@@ -34,27 +34,6 @@ public abstract class Bouncer implements Bouncable {
         
         dx = Utils.getRandomBetween(MIN_SPEED, MAX_SPEED);
         dy = Utils.getRandomBetween(MIN_SPEED, MAX_SPEED);
-    }
-    
-    /**
-     * @return la taille du Bouncer
-     */
-    protected int getSize() {
-        return size;
-    }
-    
-    /**
-     * @return la position horizontale du Bouncer
-     */
-    protected int getX() {
-        return x;
-    }
-    
-    /**
-     * @return la position verticale du Bouncer
-     */
-    protected int getY() {
-        return y;
     }
     
     @Override
@@ -85,6 +64,30 @@ public abstract class Bouncer implements Bouncable {
     public abstract Color getColor();
     
     public abstract Shape getShape();
-    
+
+    /**
+     * @return la taille du Bouncer
+     */
+    protected int getSize() {
+        return size;
+    }
+
+    /**
+     * @return la position horizontale du Bouncer
+     */
+    protected int getX() {
+        return x;
+    }
+
+    /**
+     * @return la position verticale du Bouncer
+     */
+    protected int getY() {
+        return y;
+    }
+
+    /**
+     * @return le Renderer affichant le Bouncer
+     */
     protected abstract Renderer getRenderer();
 }

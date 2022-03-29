@@ -13,13 +13,13 @@ import java.awt.event.KeyAdapter;
  * @author Valentin Kaelin
  */
 public class ViewDisplayer implements Displayer {
+    private static final int INITIAL_WIDTH = 640;
+    private static final int INITIAL_HEIGHT = 480;
+    private static ViewDisplayer instance;
+    
     private final JPanel panel;
     public final JFrame frame;
     private Image image;
-    
-    private static ViewDisplayer instance;
-    private static final int INITIAL_WIDTH = 640;
-    private static final int INITIAL_HEIGHT = 480;
     
     /**
      * Constructeur privé du Singleton
