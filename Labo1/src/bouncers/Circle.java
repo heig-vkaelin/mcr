@@ -1,8 +1,5 @@
 package bouncers;
 
-import rendering.Renderer;
-
-import java.awt.*;
 import java.awt.geom.Ellipse2D;
 
 /**
@@ -13,7 +10,7 @@ import java.awt.geom.Ellipse2D;
  */
 public abstract class Circle extends Bouncer {
     @Override
-    public Shape getShape() {
+    public Ellipse2D.Double getShape() {
         return new Ellipse2D.Double(getX(), getY(), getSize(), getSize());
     }
 }

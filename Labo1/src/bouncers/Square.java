@@ -1,8 +1,5 @@
 package bouncers;
 
-import rendering.Renderer;
-
-import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
 /**
@@ -13,7 +10,7 @@ import java.awt.geom.Rectangle2D;
  */
 public abstract class Square extends Bouncer {
     @Override
-    public Shape getShape() {
+    public Rectangle2D.Double getShape() {
         return new Rectangle2D.Double(getX(), getY(), getSize(), getSize());
     }
 }
