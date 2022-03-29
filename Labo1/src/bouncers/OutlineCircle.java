@@ -11,16 +11,13 @@ import java.awt.*;
  * @author Valentin Kaelin
  */
 public class OutlineCircle extends Circle {
-
-    /**
-     * Constructeur d'un OutlineCircle
-     */
-    public OutlineCircle() {
-        super(OutlineBouncerRenderer.getInstance());
-    }
-    
     @Override
     public Color getColor() {
         return Color.GREEN;
+    }
+    
+    @Override
+    protected OutlineBouncerRenderer getRenderer() {
+        return OutlineBouncerRenderer.getInstance();
     }
 }

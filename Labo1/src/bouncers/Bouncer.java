@@ -17,7 +17,6 @@ public abstract class Bouncer implements Bouncable {
     private final int size;
     private int x, y;
     private int dx, dy;
-    private final Renderer renderer;
     
     private static final int MAX_SIZE = 30;
     private static final int MIN_SIZE = 8;
@@ -26,12 +25,8 @@ public abstract class Bouncer implements Bouncable {
     
     /**
      * Constructeur d'un Bouncer avec des propriétés aléatoires
-     *
-     * @param renderer : renderer à utiliser lors de l'affichage du Bouncer
      */
-    public Bouncer(Renderer renderer) {
-        this.renderer = renderer;
-        
+    public Bouncer() {
         size = Utils.getRandomBetween(MIN_SIZE, MAX_SIZE);
         
         x = Utils.getRandom(ViewDisplayer.getInstance().getWidth() - size);
@@ -44,21 +39,21 @@ public abstract class Bouncer implements Bouncable {
     /**
      * @return la taille du Bouncer
      */
-    public int getSize() {
+    protected int getSize() {
         return size;
     }
     
     /**
      * @return la position horizontale du Bouncer
      */
-    public int getX() {
+    protected int getX() {
         return x;
     }
     
     /**
      * @return la position verticale du Bouncer
      */
-    public int getY() {
+    protected int getY() {
         return y;
     }
     
@@ -84,10 +79,12 @@ public abstract class Bouncer implements Bouncable {
     
     @Override
     public void draw() {
-        renderer.display(ViewDisplayer.getInstance().getGraphics(), this);
+        getRenderer().display(ViewDisplayer.getInstance().getGraphics(), this);
     }
     
     public abstract Color getColor();
     
     public abstract Shape getShape();
+    
+    protected abstract Renderer getRenderer();
 }
