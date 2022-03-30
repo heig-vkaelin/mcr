@@ -1,22 +1,29 @@
+package account;
+
+import states.*;
+
 /**
  * Classe permettant de gérer un compte utilisateur possédant de multiple état
  */
 public class Account {
     private AccountState state;
-    
+    private int id;
+    static int counter = 0;
+    protected String name;
+    protected String firstName;
     /**
-     * Constructeur par défaut de Account
+     * Constructeur par défaut de account.Account
      */
     Account(){
-        state = new SilverState();
-        state.balance = 0;
+        id = counter++;
+        state = new SilverState(this);
     }
     
     /**
      * Méthode permettant de changer le compte d'état
      * @param newState
      */
-    void setState(AccountState newState){
+    public void setState(AccountState newState){
         this.state = newState;
     }
     
@@ -28,14 +35,18 @@ public class Account {
     private void info() {
     }
     
+    /**
+     * Depose de l'argent sur le compte
+     * @param amount
+     */
     public void deposit(double amount){
         //state.deposit(amount);
     }
     
-    public void withdraw(double amount){
-        //state.withdraw(amount);
-    }
-    
-    public void payFlight(/* des trucs et des machins*/) {
+    /**
+     * Procède au paiement d'un vol
+     * @param amount
+     */
+    public void payFlight(int amount) {
     }
 }
