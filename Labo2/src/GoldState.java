@@ -1,2 +1,3 @@
-public class GoldState {
+public class GoldState extends AccountState{
+    private GoldState(){}
 }

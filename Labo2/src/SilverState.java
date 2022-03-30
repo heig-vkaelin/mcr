@@ -1,2 +1,3 @@
-public class SilverState {
+public class SilverState extends AccountState{
+
 }

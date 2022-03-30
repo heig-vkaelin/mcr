@@ -4,18 +4,12 @@
 public class Account {
     private AccountState state;
     
-    private double balance;
-    private double miles;
-    
-    private String name;
-    private String firstName;
-    
     /**
      * Constructeur par défaut de Account
      */
     Account(){
-        balance = 0;
-        state = null;
+        state = new SilverState();
+        state.balance = 0;
     }
     
     /**
@@ -27,7 +21,7 @@ public class Account {
     }
     
     /**
-     *
+     *  Renvoi les informations du compte
      * @param format
      * @param args
      */
@@ -36,5 +30,12 @@ public class Account {
     
     public void deposit(double amount){
         //state.deposit(amount);
+    }
+    
+    public void withdraw(double amount){
+        //state.withdraw(amount);
+    }
+    
+    public void payFlight(/* des trucs et des machins*/) {
     }
 }

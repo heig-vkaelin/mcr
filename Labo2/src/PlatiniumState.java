@@ -1,2 +1,3 @@
-public class PlatiniumState {
+public class PlatiniumState extends AccountState{
+    private PlatiniumState(){}
 }
