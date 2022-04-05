@@ -1,14 +1,14 @@
 package states;
 
-public class GoldState extends AccountState{
-    public GoldState(AccountState oldState){
+public class GoldState extends AccountState {
+    public GoldState(AccountState oldState) {
         super(oldState);
     }
     
-    protected void stateChangeCheck(){
-        if(miles >= 10000){
+    protected void stateChangeCheck() {
+        if (miles >= 10000) {
             account.setState(new GoldState(this));
-        } else if(miles < 1000){
+        } else if (miles < 1000) {
             account.setState(new SilverState(this));
         }
     }
