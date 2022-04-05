@@ -6,8 +6,6 @@ import flights.Ticket;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 import java.awt.event.KeyAdapter;
 
 /**
@@ -86,6 +84,7 @@ public class MainWindow implements Displayer {
         JPanel buttonsPanel = new JPanel();
         JButton btnStatuses = new JButton("Statuses");
         JButton btnQuit = new JButton("Quit");
+        btnQuit.addActionListener(e -> System.exit(0));
         buttonsPanel.add(btnStatuses);
         buttonsPanel.add(btnQuit);
         mainPanel.add(buttonsPanel);
