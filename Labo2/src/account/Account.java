@@ -9,13 +9,17 @@ public class Account {
     private AccountState state;
     private int id;
     static int counter = 0;
-    protected String name;
     protected String firstName;
+    protected String lastName;
+    
     
     /**
      * Constructeur par défaut de account.Account
      */
-    Account() {
+    public Account(String firstName, String lastName) {
+        // TODO: check pk pas public avant
+        this.firstName = firstName;
+        this.lastName = lastName;
         id = counter++;
         state = new SilverState(this);
     }
@@ -53,5 +57,10 @@ public class Account {
      * @param amount
      */
     public void payFlight(int amount) {
+    }
+    
+    @Override
+    public String toString() {
+        return lastName + " " + firstName;
     }
 }
