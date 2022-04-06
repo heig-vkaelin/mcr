@@ -4,13 +4,11 @@ public class PlatiniumState extends AccountState {
     public PlatiniumState(AccountState oldState) {
         super(oldState);
     }
-    
-    protected void stateChangeCheck() {
-        if (balance > 100000) {
-            // platine stuck
+    protected void stateChangeCheck(){
+        if(miles < 10000){
             account.setState(new GoldState(this));
-        } else if (miles < 10000) {
-            account.setState(new GoldState(this));
+        } else if(balance > 100000){
+            account.setState(new PlatiniumStateLock(this));
         }
     }
     
