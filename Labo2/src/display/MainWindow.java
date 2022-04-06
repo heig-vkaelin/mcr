@@ -9,7 +9,7 @@ import java.awt.*;
 import java.awt.event.KeyAdapter;
 
 /**
- * Singleton gérant l'affichage de l'application
+ * Fenêtre principale de l'application
  *
  * @author Alexandre Jaquier
  * @author Valentin Kaelin
@@ -17,15 +17,20 @@ import java.awt.event.KeyAdapter;
 public class MainWindow implements Displayer {
     private static final int INITIAL_WIDTH = 700;
     private static final int INITIAL_HEIGHT = 200;
-    private static MainWindow instance;
     
     private final JPanel mainPanel;
     public final JFrame frame;
     
+    private final Account[] accounts;
+    private final Flight[] flights;
+    
     /**
      * Constructeur privé du Singleton
      */
-    private MainWindow() {
+    public MainWindow(Account[] accounts, Flight[] flights) {
+        this.accounts = accounts;
+        this.flights = flights;
+        
         frame = new JFrame();
         frame.setSize(INITIAL_WIDTH, INITIAL_HEIGHT);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -33,16 +38,6 @@ public class MainWindow implements Displayer {
         mainPanel = new JPanel();
         mainPanel.setBackground(Color.WHITE);
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-        
-        // TMP: Fake random data
-        Account[] accounts = new Account[]{
-                new Account("Guy", "Boucher"),
-                new Account("Gerd", "Zenhäuser"),
-        };
-        Flight[] flights = new Flight[]{
-                new Flight("LX1", 1200, 420),
-                new Flight("LX2", 500, 120),
-        };
         
         // DEBUT INITIALISATION
         
@@ -94,15 +89,6 @@ public class MainWindow implements Displayer {
         // FIN DE L'INITIALISATION
         
         frame.setVisible(true);
-    }
-    
-    /**
-     * @return l'instance unique du Singleton
-     */
-    public static MainWindow getInstance() {
-        if (instance == null)
-            instance = new MainWindow();
-        return instance;
     }
     
     @Override
