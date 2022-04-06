@@ -60,6 +60,12 @@ public class MainWindow implements Displayer {
         JLabel lbCredits = new JLabel("Credits");
         JTextField txtCredits = new JTextField(10);
         JButton btnAddCreditsClient = new JButton("Add");
+        btnAddCreditsClient.addActionListener(e -> {
+            Account account = accounts[cbAccounts.getSelectedIndex()];
+            double amount = Double.parseDouble(txtCredits.getText());
+            account.getState().deposit(amount);
+            txtCredits.setText("");
+        });
         creditsPanel.add(lbCredits);
         creditsPanel.add(txtCredits);
         creditsPanel.add(btnAddCreditsClient);
@@ -71,7 +77,17 @@ public class MainWindow implements Displayer {
         JComboBox<Flight> cbFlights = new JComboBox<>(flights);
         JComboBox<TicketType> cbTickets = new JComboBox<>(TicketType.values());
         JButton btnBookCashFlight = new JButton("Book (cash)");
+        btnBookCashFlight.addActionListener(e -> {
+            Account account = accounts[cbAccounts.getSelectedIndex()];
+            // TODO
+            account.payFlightMoney(500);
+        });
         JButton btnBookMilesFlight = new JButton("Book (miles)");
+        btnBookMilesFlight.addActionListener(e -> {
+            Account account = accounts[cbAccounts.getSelectedIndex()];
+            // TODO
+            account.payFlightMoney(500);
+        });
         flightPanel.add(lbFlight);
         flightPanel.add(cbFlights);
         flightPanel.add(cbTickets);
