@@ -1,6 +1,7 @@
 package states;
 
 import account.Client;
+import flights.Ticket;
 import observers.Subject;
 
 import java.awt.*;
@@ -39,11 +40,11 @@ public abstract class AccountState extends Subject {
      * @param amount
      * @return si l'achat a pu être fait
      */
-    protected boolean payFlightMoney(int amount){
-        if(balance-amount < 0)
+    protected boolean payFlightMoney(Ticket ticket){
+        if(balance - ticket.getPrice() < 0)
             return false;
-        balance -=amount;
-        // miles += nbMiles du vol + nbMiles* coefMiles
+        balance -= ticket.getPrice();
+        miles += ticket.getFlight().getDistance() + ticket.getFlight().getDistance() * coefMiles();
         stateChangeCheck();
         notifyObservers();
         return true;
@@ -54,10 +55,11 @@ public abstract class AccountState extends Subject {
      * @param amount
      * @return si l'achat a pu être fait
      */
-    protected boolean payFlightMiles(int amount){
-        if(miles-amount < 0)
+    protected boolean payFlightMiles(Ticket ticket){
+        if(miles - ticket.getPrice() < 0)
             return false;
-        miles -= amount;
+        //TODO kek prixMiles
+        miles -= ticket.getPrice();
         stateChangeCheck();
         notifyObservers();
         return true;

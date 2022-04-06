@@ -17,6 +17,10 @@ public class Flight {
         return price;
     }
     
+    public int getDistance() {
+        return distance;
+    }
+    
     @Override
     public String toString() {
         return name + " (" + distance + " miles)";
