@@ -2,6 +2,7 @@ package display;
 
 import account.Client;
 import flights.Flight;
+import flights.Ticket;
 import flights.TicketType;
 
 import javax.swing.*;
@@ -23,6 +24,9 @@ public class MainWindow implements Displayer {
     
     private final Client[] clients;
     private final Flight[] flights;
+    
+    private JComboBox<Flight> cbFlights;
+    private JComboBox<Ticket> cbTickets;
     
     /**
      * Constructeur privé du Singleton
@@ -74,8 +78,11 @@ public class MainWindow implements Displayer {
         // Flight
         JPanel flightPanel = new JPanel();
         JLabel lbFlight = new JLabel("Flight");
-        JComboBox<Flight> cbFlights = new JComboBox<>(flights);
-        JComboBox<TicketType> cbTickets = new JComboBox<>(TicketType.values());
+        cbFlights = new JComboBox<>(flights);
+        cbTickets = new JComboBox<>();
+        cbFlights.addItemListener(e -> updateTicketTypes());
+        updateTicketTypes();
+        
         JButton btnBookCashFlight = new JButton("Book (cash)");
         btnBookCashFlight.addActionListener(e -> {
             Client client = clients[cbAccounts.getSelectedIndex()];
@@ -130,5 +137,13 @@ public class MainWindow implements Displayer {
     @Override
     public void addKeyListener(KeyAdapter ka) {
         frame.addKeyListener(ka);
+    }
+    
+    private void updateTicketTypes() {
+        Flight flight = cbFlights.getItemAt(cbFlights.getSelectedIndex());
+        cbTickets.removeAllItems();
+        for (TicketType type : TicketType.values()) {
+            cbTickets.addItem(new Ticket(flight, type));
+        }
     }
 }
