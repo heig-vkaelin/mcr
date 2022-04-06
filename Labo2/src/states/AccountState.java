@@ -30,6 +30,7 @@ public abstract class AccountState extends Subject {
     public void deposit(double amount) {
         balance += amount;
         stateChangeCheck();
+        notifyObservers();
     }
     
     /**
@@ -44,6 +45,7 @@ public abstract class AccountState extends Subject {
         balance -=amount;
         // miles += nbMiles du vol + nbMiles* coefMiles
         stateChangeCheck();
+        notifyObservers();
         return true;
     }
     
@@ -57,6 +59,7 @@ public abstract class AccountState extends Subject {
             return false;
         miles -= amount;
         stateChangeCheck();
+        notifyObservers();
         return true;
     }
     

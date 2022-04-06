@@ -1,7 +1,7 @@
 package flights;
 
 public enum TicketType {
-    Economy(1, 1), Business(2, 5), FirstClass(5, 3);
+    Economy(1, 1), Business(2, 5), FirstClass(5, 30);
     
     private final int priceCoeff;
     private final int milesCoeff;
