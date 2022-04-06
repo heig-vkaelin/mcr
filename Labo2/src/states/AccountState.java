@@ -1,7 +1,8 @@
 package states;
 import account.Account;
+import observers.Subject;
 
-public abstract class AccountState {
+public abstract class AccountState extends Subject {
     protected Account account;
     protected double balance;
     protected double miles;
