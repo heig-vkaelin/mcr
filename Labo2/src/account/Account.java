@@ -53,10 +53,16 @@ public class Account {
     
     /**
      * Procède au paiement d'un vol
-     *
-     * @param amount
+     * @param amount prix du vol
      */
-    public void payFlight(int amount) {
+    public void payFlightMoney(int amount) {
+    }
+    
+    /**
+     * Procède au paiement d'un vol via des miles
+     * @param amount prix du vol
+     */
+    public void payFlightMiles(int amount) {
     }
     
     @Override

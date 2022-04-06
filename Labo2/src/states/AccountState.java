@@ -31,7 +31,21 @@ public abstract class AccountState {
      * @param amount
      * @return si l'achat a pu être fait
      */
-    protected boolean payFlight(int amount){
+    protected boolean payFlightMoney(int amount){
+        if(balance-amount < 0)
+            return false;
+        balance -=amount;
+        // miles += nbMiles du vol + nbMiles* coefMiles
+        stateChangeCheck();
+        return true;
+    }
+    
+    /**
+     * Achète un ticket pour un vol
+     * @param amount
+     * @return si l'achat a pu être fait
+     */
+    protected boolean payFlightMiles(int amount){
         if(miles-amount < 0)
             return false;
         miles -=amount;
