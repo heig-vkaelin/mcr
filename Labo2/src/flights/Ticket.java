@@ -9,8 +9,7 @@ public class Ticket {
         this.flight = flight;
         this.type = type;
         
-        // TODO: remove cast when int everywhere
-        price = (int) flight.getPrice() * type.getCoeffPrice();
+        price = flight.getPrice() * type.getCoeffPrice();
     }
     
     public Flight getFlight() {
