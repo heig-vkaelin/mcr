@@ -7,8 +7,10 @@ import states.*;
  */
 public class Account {
     private AccountState state;
+    
     private int id;
     static int counter = 0;
+    
     protected String firstName;
     protected String lastName;
     
@@ -63,6 +65,22 @@ public class Account {
      * @param amount prix du vol
      */
     public void payFlightMiles(int amount) {
+    }
+    
+    public int getId() {
+        return id;
+    }
+    
+    public AccountState getState() {
+        return state;
+    }
+    
+    public String getFirstName() {
+        return firstName;
+    }
+    
+    public String getLastName() {
+        return lastName;
     }
     
     @Override

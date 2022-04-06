@@ -17,5 +17,10 @@ public class GoldState extends AccountState {
     protected double coefMiles() {
         return 0.5;
     }
+    
+    @Override
+    public String toString() {
+        return "GOLD";
+    }
 }
 

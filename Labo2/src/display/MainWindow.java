@@ -2,7 +2,7 @@ package display;
 
 import account.Account;
 import flights.Flight;
-import flights.Ticket;
+import flights.TicketType;
 
 import javax.swing.*;
 import java.awt.*;
@@ -46,6 +46,10 @@ public class MainWindow implements Displayer {
         JLabel lbClient = new JLabel("Client");
         JComboBox<Account> cbAccounts = new JComboBox<>(accounts);
         JButton btnDetailsClient = new JButton("Details");
+        btnDetailsClient.addActionListener(e -> {
+            Account account = accounts[cbAccounts.getSelectedIndex()];
+            new DetailsClientWindow(account);
+        });
         clientPanel.add(lbClient);
         clientPanel.add(cbAccounts);
         clientPanel.add(btnDetailsClient);
@@ -65,7 +69,7 @@ public class MainWindow implements Displayer {
         JPanel flightPanel = new JPanel();
         JLabel lbFlight = new JLabel("Flight");
         JComboBox<Flight> cbFlights = new JComboBox<>(flights);
-        JComboBox<Ticket> cbTickets = new JComboBox<>(Ticket.values());
+        JComboBox<TicketType> cbTickets = new JComboBox<>(TicketType.values());
         JButton btnBookCashFlight = new JButton("Book (cash)");
         JButton btnBookMilesFlight = new JButton("Book (miles)");
         flightPanel.add(lbFlight);

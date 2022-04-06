@@ -21,4 +21,9 @@ public class SilverState extends AccountState {
     protected double coefMiles() {
         return 0.1;
     }
+    
+    @Override
+    public String toString() {
+        return "SILVER";
+    }
 }

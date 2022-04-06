@@ -1,34 +1,38 @@
 package states;
+
 import account.Account;
 import observers.Subject;
 
 public abstract class AccountState extends Subject {
     protected Account account;
+    
     protected double balance;
     protected double miles;
     
-    protected AccountState(Account account){
+    protected AccountState(Account account) {
         this.account = account;
         balance = 0;
         miles = 0;
     }
     
-    protected AccountState(AccountState oldState){
+    protected AccountState(AccountState oldState) {
         balance = oldState.balance;
         miles = oldState.miles;
     }
     
     /**
      * Dépose de l'argent sur le compte
+     *
      * @param amount
      */
-    public void deposit(double amount){
+    public void deposit(double amount) {
         balance += amount;
         stateChangeCheck();
     }
     
     /**
      * Achète un ticket pour un vol
+     *
      * @param amount
      * @return si l'achat a pu être fait
      */
@@ -49,7 +53,7 @@ public abstract class AccountState extends Subject {
     protected boolean payFlightMiles(int amount){
         if(miles-amount < 0)
             return false;
-        miles -=amount;
+        miles -= amount;
         stateChangeCheck();
         return true;
     }
@@ -61,7 +65,16 @@ public abstract class AccountState extends Subject {
     
     /**
      * Retourne le coefficient de gain de miles
+     *
      * @return coefficient de gain de miles
      */
     protected abstract double coefMiles();
+    
+    public double getBalance() {
+        return balance;
+    }
+    
+    public double getMiles() {
+        return miles;
+    }
 }
