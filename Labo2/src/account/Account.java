@@ -41,7 +41,8 @@ public class Account {
      * @param format
      * @param args
      */
-    private void info() {
+    public String info() {
+        return firstName + " " + lastName + " " + state;
     }
     
     /**
@@ -55,6 +56,7 @@ public class Account {
     
     /**
      * Procède au paiement d'un vol
+     *
      * @param amount prix du vol
      */
     public void payFlightMoney(int amount) {
@@ -62,6 +64,7 @@ public class Account {
     
     /**
      * Procède au paiement d'un vol via des miles
+     *
      * @param amount prix du vol
      */
     public void payFlightMiles(int amount) {

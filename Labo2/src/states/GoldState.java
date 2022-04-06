@@ -1,5 +1,7 @@
 package states;
 
+import java.awt.*;
+
 public class GoldState extends AccountState {
     public GoldState(AccountState oldState) {
         super(oldState);
@@ -21,6 +23,11 @@ public class GoldState extends AccountState {
     @Override
     public String toString() {
         return "GOLD";
+    }
+    
+    @Override
+    public Color getColor() {
+        return Color.yellow;
     }
 }
 

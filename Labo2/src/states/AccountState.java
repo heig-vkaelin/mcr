@@ -3,6 +3,8 @@ package states;
 import account.Account;
 import observers.Subject;
 
+import java.awt.*;
+
 public abstract class AccountState extends Subject {
     protected Account account;
     
@@ -58,6 +60,14 @@ public abstract class AccountState extends Subject {
         return true;
     }
     
+    public double getBalance() {
+        return balance;
+    }
+    
+    public double getMiles() {
+        return miles;
+    }
+    
     /**
      * Regarde si l'état du compte doit changer
      */
@@ -70,11 +80,5 @@ public abstract class AccountState extends Subject {
      */
     protected abstract double coefMiles();
     
-    public double getBalance() {
-        return balance;
-    }
-    
-    public double getMiles() {
-        return miles;
-    }
+    public abstract Color getColor();
 }

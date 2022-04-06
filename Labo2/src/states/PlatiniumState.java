@@ -1,5 +1,7 @@
 package states;
 
+import java.awt.*;
+
 public class PlatiniumState extends AccountState {
     public PlatiniumState(AccountState oldState) {
         super(oldState);
@@ -21,5 +23,10 @@ public class PlatiniumState extends AccountState {
     @Override
     public String toString() {
         return "PLATINIUM";
+    }
+    
+    @Override
+    public Color getColor() {
+        return Color.cyan;
     }
 }

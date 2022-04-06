@@ -82,6 +82,7 @@ public class MainWindow implements Displayer {
         // Buttons
         JPanel buttonsPanel = new JPanel();
         JButton btnStatuses = new JButton("Statuses");
+        btnStatuses.addActionListener(e -> new StatusClientWindow(accounts));
         JButton btnQuit = new JButton("Quit");
         btnQuit.addActionListener(e -> System.exit(0));
         buttonsPanel.add(btnStatuses);

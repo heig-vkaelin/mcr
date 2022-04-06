@@ -2,6 +2,8 @@ package states;
 
 import account.Account;
 
+import java.awt.*;
+
 public class SilverState extends AccountState {
     public SilverState(AccountState oldState) {
         super(oldState);
@@ -25,5 +27,10 @@ public class SilverState extends AccountState {
     @Override
     public String toString() {
         return "SILVER";
+    }
+    
+    @Override
+    public Color getColor() {
+        return Color.gray;
     }
 }
