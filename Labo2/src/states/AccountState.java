@@ -37,13 +37,13 @@ public abstract class AccountState extends Subject {
     /**
      * Achète un ticket pour un vol
      *
-     * @param amount
+     * @param ticket
      * @return si l'achat a pu être fait
      */
-    protected boolean payFlightMoney(Ticket ticket){
-        if(balance - ticket.getPrice() < 0)
+    protected boolean payFlightMoney(Ticket ticket) {
+        if (balance - ticket.getMoneyPrice() < 0)
             return false;
-        balance -= ticket.getPrice();
+        balance -= ticket.getMoneyPrice();
         miles += ticket.getFlight().getDistance() + ticket.getFlight().getDistance() * coefMiles();
         stateChangeCheck();
         notifyObservers();
@@ -52,14 +52,14 @@ public abstract class AccountState extends Subject {
     
     /**
      * Achète un ticket pour un vol
-     * @param amount
+     *
+     * @param ticket
      * @return si l'achat a pu être fait
      */
-    protected boolean payFlightMiles(Ticket ticket){
-        if(miles - ticket.getPrice() < 0)
+    protected boolean payFlightMiles(Ticket ticket) {
+        if (miles - ticket.getMilesPrice() < 0)
             return false;
-        //TODO kek prixMiles
-        miles -= ticket.getPrice();
+        miles -= ticket.getMilesPrice();
         stateChangeCheck();
         notifyObservers();
         return true;

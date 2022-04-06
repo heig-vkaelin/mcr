@@ -140,7 +140,7 @@ public class MainWindow implements Displayer {
     }
     
     private void updateTicketTypes() {
-        Flight flight = cbFlights.getItemAt(cbFlights.getSelectedIndex());
+        Flight flight = (Flight) cbFlights.getSelectedItem();
         cbTickets.removeAllItems();
         for (TicketType type : TicketType.values()) {
             cbTickets.addItem(new Ticket(flight, type));

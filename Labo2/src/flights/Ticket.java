@@ -3,13 +3,15 @@ package flights;
 public class Ticket {
     private final Flight flight;
     private final TicketType type;
-    private final int price;
+    private final int moneyPrice;
+    private final int milesPrice;
     
     public Ticket(Flight flight, TicketType type) {
         this.flight = flight;
         this.type = type;
         
-        price = flight.getPrice() * type.getCoeffPrice();
+        moneyPrice = flight.getPrice() * type.getCoeffPrice();
+        milesPrice = flight.getPrice() * type.getCoeffMiles();
     }
     
     public Flight getFlight() {
@@ -20,12 +22,16 @@ public class Ticket {
         return type;
     }
     
-    public int getPrice() {
-        return price;
+    public int getMoneyPrice() {
+        return moneyPrice;
+    }
+    
+    public int getMilesPrice() {
+        return milesPrice;
     }
     
     @Override
     public String toString() {
-        return type + " " + price + "$";
+        return type + " " + moneyPrice + "$";
     }
 }
