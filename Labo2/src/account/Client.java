@@ -5,7 +5,7 @@ import states.*;
 /**
  * Classe permettant de gérer un compte utilisateur possédant de multiple état
  */
-public class Account {
+public class Client {
     private AccountState state;
     
     private int id;
@@ -18,7 +18,7 @@ public class Account {
     /**
      * Constructeur par défaut de account.Account
      */
-    public Account(String firstName, String lastName) {
+    public Client(String firstName, String lastName) {
         // TODO: check pk pas public avant
         this.firstName = firstName;
         this.lastName = lastName;

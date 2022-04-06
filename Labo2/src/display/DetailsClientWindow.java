@@ -1,6 +1,6 @@
 package display;
 
-import account.Account;
+import account.Client;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,11 +17,11 @@ public class DetailsClientWindow {
     private JLabel lbStatusContent;
     private JLabel lbLastActionContent;
     
-    public DetailsClientWindow(Account account) {
+    public DetailsClientWindow(Client client) {
         frame = new JFrame();
         frame.setSize(INITIAL_WIDTH, INITIAL_HEIGHT);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setTitle("Details of client #" + account.getId());
+        frame.setTitle("Details of client #" + client.getId());
         
         
         JPanel mainPanel = new JPanel();
@@ -30,35 +30,35 @@ public class DetailsClientWindow {
         
         JPanel lastNamePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JLabel lbLastName = new JLabel("Last name :");
-        lbLastNameContent = new JLabel(account.getLastName());
+        lbLastNameContent = new JLabel(client.getLastName());
         lastNamePanel.add(lbLastName);
         lastNamePanel.add(lbLastNameContent);
         mainPanel.add(lastNamePanel);
         
         JPanel firstNamePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JLabel lbFirstName = new JLabel("First name :");
-        lbFirstNameContent = new JLabel(account.getFirstName());
+        lbFirstNameContent = new JLabel(client.getFirstName());
         firstNamePanel.add(lbFirstName);
         firstNamePanel.add(lbFirstNameContent);
         mainPanel.add(firstNamePanel);
         
         JPanel creditsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JLabel lbCredits = new JLabel("Credits :");
-        lbCreditsContent = new JLabel(String.valueOf(account.getState().getBalance()));
+        lbCreditsContent = new JLabel(String.valueOf(client.getState().getBalance()));
         creditsPanel.add(lbCredits);
         creditsPanel.add(lbCreditsContent);
         mainPanel.add(creditsPanel);
         
         JPanel milesPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JLabel lbMiles = new JLabel("Nb miles :");
-        lbMilesContent = new JLabel(String.valueOf(account.getState().getMiles()));
+        lbMilesContent = new JLabel(String.valueOf(client.getState().getMiles()));
         milesPanel.add(lbMiles);
         milesPanel.add(lbMilesContent);
         mainPanel.add(milesPanel);
         
         JPanel statusPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JLabel lbStatus = new JLabel("Status :");
-        lbStatusContent = new JLabel(String.valueOf(account.getState().toString()));
+        lbStatusContent = new JLabel(String.valueOf(client.getState().toString()));
         statusPanel.add(lbStatus);
         statusPanel.add(lbStatusContent);
         mainPanel.add(statusPanel);

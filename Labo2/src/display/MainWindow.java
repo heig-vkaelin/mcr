@@ -1,6 +1,6 @@
 package display;
 
-import account.Account;
+import account.Client;
 import flights.Flight;
 import flights.TicketType;
 
@@ -21,14 +21,14 @@ public class MainWindow implements Displayer {
     private final JPanel mainPanel;
     public final JFrame frame;
     
-    private final Account[] accounts;
+    private final Client[] clients;
     private final Flight[] flights;
     
     /**
      * Constructeur privé du Singleton
      */
-    public MainWindow(Account[] accounts, Flight[] flights) {
-        this.accounts = accounts;
+    public MainWindow(Client[] clients, Flight[] flights) {
+        this.clients = clients;
         this.flights = flights;
         
         frame = new JFrame();
@@ -44,11 +44,11 @@ public class MainWindow implements Displayer {
         // Client
         JPanel clientPanel = new JPanel();
         JLabel lbClient = new JLabel("Client");
-        JComboBox<Account> cbAccounts = new JComboBox<>(accounts);
+        JComboBox<Client> cbAccounts = new JComboBox<>(clients);
         JButton btnDetailsClient = new JButton("Details");
         btnDetailsClient.addActionListener(e -> {
-            Account account = accounts[cbAccounts.getSelectedIndex()];
-            new DetailsClientWindow(account);
+            Client client = clients[cbAccounts.getSelectedIndex()];
+            new DetailsClientWindow(client);
         });
         clientPanel.add(lbClient);
         clientPanel.add(cbAccounts);
@@ -61,9 +61,9 @@ public class MainWindow implements Displayer {
         JTextField txtCredits = new JTextField(10);
         JButton btnAddCreditsClient = new JButton("Add");
         btnAddCreditsClient.addActionListener(e -> {
-            Account account = accounts[cbAccounts.getSelectedIndex()];
+            Client client = clients[cbAccounts.getSelectedIndex()];
             double amount = Double.parseDouble(txtCredits.getText());
-            account.getState().deposit(amount);
+            client.getState().deposit(amount);
             txtCredits.setText("");
         });
         creditsPanel.add(lbCredits);
@@ -78,15 +78,15 @@ public class MainWindow implements Displayer {
         JComboBox<TicketType> cbTickets = new JComboBox<>(TicketType.values());
         JButton btnBookCashFlight = new JButton("Book (cash)");
         btnBookCashFlight.addActionListener(e -> {
-            Account account = accounts[cbAccounts.getSelectedIndex()];
+            Client client = clients[cbAccounts.getSelectedIndex()];
             // TODO
-            account.payFlightMoney(500);
+            client.payFlightMoney(500);
         });
         JButton btnBookMilesFlight = new JButton("Book (miles)");
         btnBookMilesFlight.addActionListener(e -> {
-            Account account = accounts[cbAccounts.getSelectedIndex()];
+            Client client = clients[cbAccounts.getSelectedIndex()];
             // TODO
-            account.payFlightMoney(500);
+            client.payFlightMoney(500);
         });
         flightPanel.add(lbFlight);
         flightPanel.add(cbFlights);
@@ -98,7 +98,7 @@ public class MainWindow implements Displayer {
         // Buttons
         JPanel buttonsPanel = new JPanel();
         JButton btnStatuses = new JButton("Statuses");
-        btnStatuses.addActionListener(e -> new StatusClientWindow(accounts));
+        btnStatuses.addActionListener(e -> new StatusClientWindow(clients));
         JButton btnQuit = new JButton("Quit");
         btnQuit.addActionListener(e -> System.exit(0));
         buttonsPanel.add(btnStatuses);

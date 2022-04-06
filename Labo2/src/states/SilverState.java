@@ -1,6 +1,6 @@
 package states;
 
-import account.Account;
+import account.Client;
 
 import java.awt.*;
 
@@ -9,13 +9,13 @@ public class SilverState extends AccountState {
         super(oldState);
     }
     
-    public SilverState(Account account) {
-        super(account);
+    public SilverState(Client client) {
+        super(client);
     }
     
     protected void stateChangeCheck() {
         if (miles >= 1000) {
-            account.setState(new GoldState(this));
+            client.setState(new GoldState(this));
         }
     }
     

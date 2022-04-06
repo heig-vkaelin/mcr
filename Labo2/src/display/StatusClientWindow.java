@@ -1,6 +1,6 @@
 package display;
 
-import account.Account;
+import account.Client;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,7 +13,7 @@ public class StatusClientWindow {
     private final JFrame frame;
     private final HashMap<Integer, JLabel> labels;
     
-    public StatusClientWindow(Account[] accounts) {
+    public StatusClientWindow(Client[] clients) {
         frame = new JFrame();
         frame.setSize(INITIAL_WIDTH, INITIAL_HEIGHT);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -25,11 +25,11 @@ public class StatusClientWindow {
         mainPanel.setBackground(Color.WHITE);
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
         
-        for (Account account : accounts) {
-            JLabel lbStatus = new JLabel(account.info());
-            lbStatus.setForeground(account.getState().getColor());
+        for (Client client : clients) {
+            JLabel lbStatus = new JLabel(client.info());
+            lbStatus.setForeground(client.getState().getColor());
             mainPanel.add(lbStatus);
-            labels.put(account.getId(), lbStatus);
+            labels.put(client.getId(), lbStatus);
         }
         
         frame.setContentPane(mainPanel);

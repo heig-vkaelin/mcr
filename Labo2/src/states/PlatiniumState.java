@@ -9,9 +9,9 @@ public class PlatiniumState extends AccountState {
     
     protected void stateChangeCheck() {
         if (miles < 10000) {
-            account.setState(new GoldState(this));
+            client.setState(new GoldState(this));
         } else if (balance > 100000) {
-            account.setState(new PlatiniumStateLock(this));
+            client.setState(new PlatiniumStateLock(this));
         }
     }
     

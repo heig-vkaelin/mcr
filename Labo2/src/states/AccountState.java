@@ -1,18 +1,18 @@
 package states;
 
-import account.Account;
+import account.Client;
 import observers.Subject;
 
 import java.awt.*;
 
 public abstract class AccountState extends Subject {
-    protected Account account;
+    protected Client client;
     
     protected double balance;
     protected double miles;
     
-    protected AccountState(Account account) {
-        this.account = account;
+    protected AccountState(Client client) {
+        this.client = client;
         balance = 0;
         miles = 0;
     }
