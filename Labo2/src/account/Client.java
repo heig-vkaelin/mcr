@@ -1,11 +1,13 @@
 package account;
 
+import flights.Ticket;
+import observers.Subject;
 import states.*;
 
 /**
  * Classe permettant de gérer un compte utilisateur possédant de multiple état
  */
-public class Client {
+public class Client extends Subject {
     private AccountState state;
     
     private int id;
@@ -47,11 +49,11 @@ public class Client {
     
     /**
      * Depose de l'argent sur le compte
-     *
      * @param amount
      */
     public void deposit(double amount) {
-        //state.deposit(amount);
+        state.deposit(amount);
+        notifyObservers();
     }
     
     /**
@@ -59,7 +61,9 @@ public class Client {
      *
      * @param amount prix du vol
      */
-    public void payFlightMoney(int amount) {
+    public void payFlightMoney(Ticket amount) {
+        state.payFlightMoney(amount);
+        notifyObservers();
     }
     
     /**
@@ -67,7 +71,9 @@ public class Client {
      *
      * @param amount prix du vol
      */
-    public void payFlightMiles(int amount) {
+    public void payFlightMiles(Ticket amount) {
+        state.payFlightMiles(amount);
+        notifyObservers();
     }
     
     public int getId() {

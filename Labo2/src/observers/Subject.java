@@ -16,8 +16,7 @@ public abstract class Subject {
     }
     protected void notifyObservers(){
         for (Observer o : observers){
-            o.update(this);
+            o.update();
         }
     }
-    public abstract AccountState getState();
 }

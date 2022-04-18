@@ -52,7 +52,7 @@ public class MainWindow implements Displayer {
         JButton btnDetailsClient = new JButton("Details");
         btnDetailsClient.addActionListener(e -> {
             Client client = clients[cbAccounts.getSelectedIndex()];
-            client.getState().attach(new DetailsClientWindow(client));
+            client.attach(new DetailsClientWindow(client));
         });
         clientPanel.add(lbClient);
         clientPanel.add(cbAccounts);
@@ -67,7 +67,7 @@ public class MainWindow implements Displayer {
         btnAddCreditsClient.addActionListener(e -> {
             Client client = clients[cbAccounts.getSelectedIndex()];
             double amount = Double.parseDouble(txtCredits.getText());
-            client.getState().deposit(amount);
+            client.deposit(amount);
             txtCredits.setText("");
         });
         creditsPanel.add(lbCredits);
@@ -87,13 +87,13 @@ public class MainWindow implements Displayer {
         btnBookCashFlight.addActionListener(e -> {
             Client client = clients[cbAccounts.getSelectedIndex()];
             // TODO
-            client.payFlightMoney(500);
+            client.payFlightMoney((Ticket)cbTickets.getSelectedItem());
         });
         JButton btnBookMilesFlight = new JButton("Book (miles)");
         btnBookMilesFlight.addActionListener(e -> {
             Client client = clients[cbAccounts.getSelectedIndex()];
             // TODO
-            client.payFlightMiles(500);
+            client.payFlightMiles((Ticket)cbTickets.getSelectedItem());
         });
         flightPanel.add(lbFlight);
         flightPanel.add(cbFlights);
@@ -108,7 +108,7 @@ public class MainWindow implements Displayer {
         btnStatuses.addActionListener(e -> {
             StatusClientWindow p = new StatusClientWindow(clients);
             for (Client c : clients) {
-                c.getState().getState().attach(p);
+                c.attach(p);
             }
         });
         JButton btnQuit = new JButton("Quit");

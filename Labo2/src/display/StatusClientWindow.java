@@ -15,8 +15,9 @@ public class StatusClientWindow implements Observer {
     
     private final JFrame frame;
     private final HashMap<Integer, JLabel> labels;
-    
+    Client[] clients;
     public StatusClientWindow(Client[] clients) {
+        this.clients = clients;
         frame = new JFrame();
         frame.setSize(INITIAL_WIDTH, INITIAL_HEIGHT);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -40,8 +41,10 @@ public class StatusClientWindow implements Observer {
     }
     
     @Override
-    public void update(Subject s) {
-        AccountState state = s.getState();
-        labels.get(s.getState().getClient().getId()).setText(state.toString());
+    public void update() {
+        for (Client c : clients) {
+            labels.get(c.getState().getClient().getId()).setForeground(c.getState().getColor());
+            labels.get(c.getState().getClient().getId()).setText(c.info());
+        }
     }
 }

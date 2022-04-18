@@ -2,11 +2,10 @@ package states;
 
 import account.Client;
 import flights.Ticket;
-import observers.Subject;
 
 import java.awt.*;
 
-public abstract class AccountState extends Subject {
+public abstract class AccountState{
     protected Client client;
     
     protected double balance;
@@ -19,19 +18,18 @@ public abstract class AccountState extends Subject {
     }
     
     protected AccountState(AccountState oldState) {
+        client = oldState.client;
         balance = oldState.balance;
         miles = oldState.miles;
     }
     
     /**
      * Dépose de l'argent sur le compte
-     *
      * @param amount
      */
     public void deposit(double amount) {
         balance += amount;
         stateChangeCheck();
-        notifyObservers();
     }
     
     /**
@@ -46,7 +44,6 @@ public abstract class AccountState extends Subject {
         balance -= ticket.getMoneyPrice();
         miles += ticket.getFlight().getDistance() + ticket.getFlight().getDistance() * coefMiles();
         stateChangeCheck();
-        notifyObservers();
         return true;
     }
     
@@ -61,7 +58,6 @@ public abstract class AccountState extends Subject {
             return false;
         miles -= ticket.getMilesPrice();
         stateChangeCheck();
-        notifyObservers();
         return true;
     }
     

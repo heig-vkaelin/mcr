@@ -20,7 +20,9 @@ public class DetailsClientWindow implements Observer {
     private JLabel lbStatusContent;
     private JLabel lbLastActionContent;
     
+    Client client;
     public DetailsClientWindow(Client client) {
+        this.client = client;
         frame = new JFrame();
         frame.setSize(INITIAL_WIDTH, INITIAL_HEIGHT);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -78,10 +80,9 @@ public class DetailsClientWindow implements Observer {
     }
     
     @Override
-    public void update(Subject s) {
-        AccountState state = s.getState();
-        lbCreditsContent.setText(String.valueOf(s.getState().getBalance()));
-        lbMilesContent.setText(String.valueOf(s.getState().getMiles()));
-        lbStatusContent.setText(String.valueOf(s.getState().toString()));
+    public void update() {
+        lbCreditsContent.setText(String.valueOf(client.getState().getBalance()));
+        lbMilesContent.setText(String.valueOf(client.getState().getMiles()));
+        lbStatusContent.setText(String.valueOf(client.getState().toString()));
     }
 }

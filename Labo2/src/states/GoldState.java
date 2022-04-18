@@ -9,7 +9,7 @@ public class GoldState extends AccountState {
     
     protected void stateChangeCheck() {
         if (miles >= 10000) {
-            client.setState(new GoldState(this));
+            client.setState(new PlatiniumState(this));
         } else if (miles < 1000) {
             client.setState(new SilverState(this));
         }
