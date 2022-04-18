@@ -1,5 +1,7 @@
 package observers;
 
+import states.AccountState;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,4 +19,5 @@ public abstract class Subject {
             o.update(this);
         }
     }
+    public abstract AccountState getState();
 }

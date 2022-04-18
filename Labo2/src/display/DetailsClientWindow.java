@@ -1,11 +1,14 @@
 package display;
 
 import account.Client;
+import observers.Observer;
+import observers.Subject;
+import states.AccountState;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class DetailsClientWindow {
+public class DetailsClientWindow implements Observer {
     private static final int INITIAL_WIDTH = 500;
     private static final int INITIAL_HEIGHT = 250;
     
@@ -72,5 +75,13 @@ public class DetailsClientWindow {
         
         frame.setContentPane(mainPanel);
         frame.setVisible(true);
+    }
+    
+    @Override
+    public void update(Subject s) {
+        AccountState state = s.getState();
+        lbCreditsContent.setText(String.valueOf(s.getState().getBalance()));
+        lbMilesContent.setText(String.valueOf(s.getState().getMiles()));
+        lbStatusContent.setText(String.valueOf(s.getState().toString()));
     }
 }

@@ -40,7 +40,7 @@ public abstract class AccountState extends Subject {
      * @param ticket
      * @return si l'achat a pu être fait
      */
-    protected boolean payFlightMoney(Ticket ticket) {
+    public boolean payFlightMoney(Ticket ticket) {
         if (balance - ticket.getMoneyPrice() < 0)
             return false;
         balance -= ticket.getMoneyPrice();
@@ -56,7 +56,7 @@ public abstract class AccountState extends Subject {
      * @param ticket
      * @return si l'achat a pu être fait
      */
-    protected boolean payFlightMiles(Ticket ticket) {
+    public boolean payFlightMiles(Ticket ticket) {
         if (miles - ticket.getMilesPrice() < 0)
             return false;
         miles -= ticket.getMilesPrice();
@@ -86,4 +86,12 @@ public abstract class AccountState extends Subject {
     protected abstract double coefMiles();
     
     public abstract Color getColor();
+    
+    public AccountState getState(){
+        return this;
+    }
+    
+    public Client getClient() {
+        return client;
+    }
 }
