@@ -6,12 +6,14 @@ import java.awt.*;
 
 /**
  * Classe representant l'etat Silver d'un compte
+ *
  * @author Alexandre Jaquier
  * @author Valentin Kaelin
  */
 public class SilverState extends AccountState {
     /**
      * Constructeur de copie de la classe SilverState
+     *
      * @param oldState l'état précédent du compte
      */
     public SilverState(AccountState oldState) {
@@ -20,6 +22,7 @@ public class SilverState extends AccountState {
     
     /**
      * Constructeur de la classe SilverState
+     *
      * @param client le client du compte
      */
     public SilverState(Client client) {
@@ -37,6 +40,7 @@ public class SilverState extends AccountState {
     
     /**
      * Methode permettant de connaître le coefficient miles de l'état Silver
+     *
      * @return le coefficient miles de l'état Silver
      */
     @Override
@@ -46,6 +50,7 @@ public class SilverState extends AccountState {
     
     /**
      * Methode permettant d'afficher l'état Silver
+     *
      * @return l'état Silver sous forme de String
      */
     @Override
@@ -55,6 +60,7 @@ public class SilverState extends AccountState {
     
     /**
      * Méthode permettant de connaitre la couleur de l'état Silver
+     *
      * @return la couleur de l'état Silver
      */
     @Override

@@ -4,12 +4,14 @@ import java.awt.*;
 
 /**
  * Classe representant l'etat Platinium d'un compte
+ *
  * @author Alexandre Jaquier
  * @author Valentin Kaelin
  */
 public class PlatiniumState extends AccountState {
     /**
      * Constructeur de la classe PlatiniumState
+     *
      * @param oldState état précédent du compte
      */
     public PlatiniumState(AccountState oldState) {
@@ -29,6 +31,7 @@ public class PlatiniumState extends AccountState {
     
     /**
      * Methode permettant de connaître le coefficient miles de l'état Platinium
+     *
      * @return le coefficient miles de l'état Platinium
      */
     @Override
@@ -38,6 +41,7 @@ public class PlatiniumState extends AccountState {
     
     /**
      * Methode permettant d'afficher l'état Platinium
+     *
      * @return l'état Platinium sous forme de String
      */
     @Override
@@ -47,6 +51,7 @@ public class PlatiniumState extends AccountState {
     
     /**
      * Methode permettant de connaitre la couleur de l'état Platinium
+     *
      * @return la couleur de l'état Platinium
      */
     @Override

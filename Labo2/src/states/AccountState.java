@@ -7,10 +7,11 @@ import java.awt.*;
 
 /**
  * Classe permettant de gérer les états d'un compte client
+ *
  * @author Alexandre Jaquier
  * @author Valentin Kaelin
  */
-public abstract class AccountState{
+public abstract class AccountState {
     protected Client client;
     
     protected double balance;
@@ -18,6 +19,7 @@ public abstract class AccountState{
     
     /**
      * Constructeur de base d'un compte
+     *
      * @param client client du compte
      */
     protected AccountState(Client client) {
@@ -28,6 +30,7 @@ public abstract class AccountState{
     
     /**
      * Constructeur de copie d'un compte
+     *
      * @param oldState état à copier
      */
     protected AccountState(AccountState oldState) {
@@ -38,6 +41,7 @@ public abstract class AccountState{
     
     /**
      * Dépose de l'argent sur le compte
+     *
      * @param amount montant à déposer
      */
     public void deposit(double amount) {
@@ -47,6 +51,7 @@ public abstract class AccountState{
     
     /**
      * Achète un ticket pour un vol
+     *
      * @param ticket ticket à acheter
      * @return si l'achat a pu être fait ou non
      */
@@ -61,6 +66,7 @@ public abstract class AccountState{
     
     /**
      * Achète un ticket pour un vol
+     *
      * @param ticket ticket à acheter
      * @return si l'achat a pu être fait ou non
      */
@@ -74,6 +80,7 @@ public abstract class AccountState{
     
     /**
      * Retourne le montant d'argent du compte
+     *
      * @return montant d'argent du compte
      */
     public double getBalance() {
@@ -82,6 +89,7 @@ public abstract class AccountState{
     
     /**
      * Retourne le nombre de miles du compte
+     *
      * @return nombre de miles du compte
      */
     public double getMiles() {
@@ -95,12 +103,14 @@ public abstract class AccountState{
     
     /**
      * Retourne le coefficient de gain de miles
+     *
      * @return coefficient de gain de miles
      */
     protected abstract double coefMiles();
     
     /**
      * Retourne la couleur de l'état du compte
+     *
      * @return
      */
     public abstract Color getColor();

@@ -12,6 +12,8 @@ public class DetailsClientWindow implements Observer {
     private static final int INITIAL_WIDTH = 500;
     private static final int INITIAL_HEIGHT = 250;
     
+    private final Client client;
+    
     private final JFrame frame;
     private JLabel lbLastNameContent;
     private JLabel lbFirstNameContent;
@@ -20,7 +22,6 @@ public class DetailsClientWindow implements Observer {
     private JLabel lbStatusContent;
     private JLabel lbLastActionContent;
     
-    Client client;
     public DetailsClientWindow(Client client) {
         this.client = client;
         frame = new JFrame();

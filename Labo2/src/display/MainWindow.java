@@ -87,13 +87,13 @@ public class MainWindow implements Displayer {
         btnBookCashFlight.addActionListener(e -> {
             Client client = clients[cbAccounts.getSelectedIndex()];
             // TODO
-            client.payFlightMoney((Ticket)cbTickets.getSelectedItem());
+            client.payFlightMoney((Ticket) cbTickets.getSelectedItem());
         });
         JButton btnBookMilesFlight = new JButton("Book (miles)");
         btnBookMilesFlight.addActionListener(e -> {
             Client client = clients[cbAccounts.getSelectedIndex()];
             // TODO
-            client.payFlightMiles((Ticket)cbTickets.getSelectedItem());
+            client.payFlightMiles((Ticket) cbTickets.getSelectedItem());
         });
         flightPanel.add(lbFlight);
         flightPanel.add(cbFlights);

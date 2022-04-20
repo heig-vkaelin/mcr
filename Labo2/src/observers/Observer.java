@@ -2,6 +2,7 @@ package observers;
 
 /**
  * Interface observer
+ *
  * @author Alexandre Jaquier
  * @author Valentin Kaelin
  */

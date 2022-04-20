@@ -6,6 +6,7 @@ import states.*;
 
 /**
  * Classe permettant de gérer un compte utilisateur possédant de multiple état
+ *
  * @author Alexandre Jaquier
  * @author Valentin Kaelin
  */
@@ -41,6 +42,7 @@ public class Client extends Subject {
     
     /**
      * Renvoi les informations du compte
+     *
      * @param format
      * @param args
      */
@@ -50,6 +52,7 @@ public class Client extends Subject {
     
     /**
      * Depose de l'argent sur le compte
+     *
      * @param amount
      */
     public void deposit(double amount) {
@@ -59,6 +62,7 @@ public class Client extends Subject {
     
     /**
      * Procède au paiement d'un vol via de l'argent
+     *
      * @param ticket prix du vol
      */
     public void payFlightMoney(Ticket ticket) {
@@ -68,6 +72,7 @@ public class Client extends Subject {
     
     /**
      * Procède au paiement d'un vol via des miles
+     *
      * @param ticket prix du vol
      */
     public void payFlightMiles(Ticket ticket) {
@@ -77,6 +82,7 @@ public class Client extends Subject {
     
     /**
      * Renvoi l'id du client
+     *
      * @return id du client
      */
     public int getId() {
@@ -85,6 +91,7 @@ public class Client extends Subject {
     
     /**
      * Renvoi l'état du compte
+     *
      * @return état du compte
      */
     public AccountState getState() {
@@ -93,6 +100,7 @@ public class Client extends Subject {
     
     /**
      * Renvoi le prénom du client
+     *
      * @return prénom du client
      */
     public String getFirstName() {
@@ -101,6 +109,7 @@ public class Client extends Subject {
     
     /**
      * Renvoi le nom du client
+     *
      * @return nom du client
      */
     public String getLastName() {
@@ -109,6 +118,7 @@ public class Client extends Subject {
     
     /**
      * Affiche les informations du compte
+     *
      * @return informations du compte sous forme de string
      */
     @Override

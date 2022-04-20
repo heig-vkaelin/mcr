@@ -16,6 +16,7 @@ public class StatusClientWindow implements Observer {
     private final JFrame frame;
     private final HashMap<Integer, JLabel> labels;
     Client[] clients;
+    
     public StatusClientWindow(Client[] clients) {
         this.clients = clients;
         frame = new JFrame();

@@ -4,12 +4,14 @@ import java.awt.*;
 
 /**
  * Classe représentant l'état Gold d'un compte
+ *
  * @author Alexandre Jaquier
  * @author Valentin Kaelin
  */
 public class GoldState extends AccountState {
     /**
      * Constructeur de la classe GoldState
+     *
      * @param oldState l'état précédent du compte
      */
     public GoldState(AccountState oldState) {
@@ -29,6 +31,7 @@ public class GoldState extends AccountState {
     
     /**
      * Méthode permettant de connaître le coefficient de miles de l'état Gold
+     *
      * @return le coefficient de miles de l'état Gold
      */
     @Override
@@ -38,6 +41,7 @@ public class GoldState extends AccountState {
     
     /**
      * Méthode permettant d'afficher l'état Gold
+     *
      * @return l'état Gold sous forme de String
      */
     @Override
@@ -47,6 +51,7 @@ public class GoldState extends AccountState {
     
     /**
      * Méthode permettant d'avoir la couleur de l'état Gold
+     *
      * @return la couleur de l'état Gold
      */
     @Override
