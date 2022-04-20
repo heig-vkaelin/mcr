@@ -6,6 +6,8 @@ import states.*;
 
 /**
  * Classe permettant de gérer un compte utilisateur possédant de multiple état
+ * @author Alexandre Jaquier
+ * @author Valentin Kaelin
  */
 public class Client extends Subject {
     private AccountState state;
@@ -18,7 +20,7 @@ public class Client extends Subject {
     
     
     /**
-     * Constructeur par défaut de account.Account
+     * Constructeur par défaut de Client
      */
     public Client(String firstName, String lastName) {
         // TODO: check pk pas public avant
@@ -29,7 +31,7 @@ public class Client extends Subject {
     }
     
     /**
-     * Méthode permettant de changer le compte d'état
+     * Méthode permettant de changer l'état du compte
      *
      * @param newState
      */
@@ -39,7 +41,6 @@ public class Client extends Subject {
     
     /**
      * Renvoi les informations du compte
-     *
      * @param format
      * @param args
      */
@@ -57,41 +58,59 @@ public class Client extends Subject {
     }
     
     /**
-     * Procède au paiement d'un vol
-     *
-     * @param amount prix du vol
+     * Procède au paiement d'un vol via de l'argent
+     * @param ticket prix du vol
      */
-    public void payFlightMoney(Ticket amount) {
-        state.payFlightMoney(amount);
+    public void payFlightMoney(Ticket ticket) {
+        state.payFlightMoney(ticket);
         notifyObservers();
     }
     
     /**
      * Procède au paiement d'un vol via des miles
-     *
-     * @param amount prix du vol
+     * @param ticket prix du vol
      */
-    public void payFlightMiles(Ticket amount) {
-        state.payFlightMiles(amount);
+    public void payFlightMiles(Ticket ticket) {
+        state.payFlightMiles(ticket);
         notifyObservers();
     }
     
+    /**
+     * Renvoi l'id du client
+     * @return id du client
+     */
     public int getId() {
         return id;
     }
     
+    /**
+     * Renvoi l'état du compte
+     * @return état du compte
+     */
     public AccountState getState() {
         return state;
     }
     
+    /**
+     * Renvoi le prénom du client
+     * @return prénom du client
+     */
     public String getFirstName() {
         return firstName;
     }
     
+    /**
+     * Renvoi le nom du client
+     * @return nom du client
+     */
     public String getLastName() {
         return lastName;
     }
     
+    /**
+     * Affiche les informations du compte
+     * @return informations du compte sous forme de string
+     */
     @Override
     public String toString() {
         return lastName + " " + firstName;

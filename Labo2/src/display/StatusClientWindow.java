@@ -43,8 +43,8 @@ public class StatusClientWindow implements Observer {
     @Override
     public void update() {
         for (Client c : clients) {
-            labels.get(c.getState().getClient().getId()).setForeground(c.getState().getColor());
-            labels.get(c.getState().getClient().getId()).setText(c.info());
+            labels.get(c.getId()).setForeground(c.getState().getColor());
+            labels.get(c.getId()).setText(c.info());
         }
     }
 }
