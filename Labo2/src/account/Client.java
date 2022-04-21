@@ -4,6 +4,8 @@ import flights.Ticket;
 import observers.Subject;
 import states.*;
 
+import java.awt.*;
+
 /**
  * Classe permettant de gérer un compte utilisateur possédant de multiple état
  *
@@ -13,7 +15,7 @@ import states.*;
 public class Client extends Subject {
     private AccountState state;
     
-    private int id;
+    private final int id;
     static int counter = 0;
     
     protected String firstName;
@@ -43,8 +45,6 @@ public class Client extends Subject {
     /**
      * Renvoi les informations du compte
      *
-     * @param format
-     * @param args
      */
     public String info() {
         return firstName + " " + lastName + " " + state;
@@ -90,15 +90,6 @@ public class Client extends Subject {
     }
     
     /**
-     * Renvoi l'état du compte
-     *
-     * @return état du compte
-     */
-    public AccountState getState() {
-        return state;
-    }
-    
-    /**
      * Renvoi le prénom du client
      *
      * @return prénom du client
@@ -114,6 +105,38 @@ public class Client extends Subject {
      */
     public String getLastName() {
         return lastName;
+    }
+    
+    /**
+     * Retourne la couleur de l'état du compte
+     * @return couleur de l'état du compte
+     */
+    public Color getColor(){
+        return state.getColor();
+    }
+    
+    /**
+     * Renvoi le solde du compte
+     * @return solde du compte
+     */
+    public double getBalance(){
+        return state.getBalance();
+    }
+    
+    /**
+     * Renvoi le nombre de miles du compte
+     * @return
+     */
+    public double getMiles(){
+        return state.getMiles();
+    }
+    
+    /**
+     * Renvoi l'état du compte sous forme de string
+     * @return état du compte sous forme de string
+     */
+    public String getStateToString(){
+        return state.toString();
     }
     
     /**

@@ -56,7 +56,7 @@ public class GoldState extends AccountState {
      */
     @Override
     public Color getColor() {
-        return Color.yellow;
+        return Color.orange;
     }
 }
 

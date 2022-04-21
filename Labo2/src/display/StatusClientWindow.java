@@ -32,7 +32,7 @@ public class StatusClientWindow implements Observer {
         
         for (Client client : clients) {
             JLabel lbStatus = new JLabel(client.info());
-            lbStatus.setForeground(client.getState().getColor());
+            lbStatus.setForeground(client.getColor());
             mainPanel.add(lbStatus);
             labels.put(client.getId(), lbStatus);
         }
@@ -42,10 +42,9 @@ public class StatusClientWindow implements Observer {
     }
     
     @Override
-    public void update() {
-        for (Client c : clients) {
-            labels.get(c.getId()).setForeground(c.getState().getColor());
-            labels.get(c.getId()).setText(c.info());
-        }
+    public void update(Subject subject) {
+        Client client = (Client) subject;
+        labels.get(client.getId()).setForeground(client.getColor());
+        labels.get(client.getId()).setText(client.info());
     }
 }

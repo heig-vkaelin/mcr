@@ -50,21 +50,21 @@ public class DetailsClientWindow implements Observer {
         
         JPanel creditsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JLabel lbCredits = new JLabel("Credits :");
-        lbCreditsContent = new JLabel(String.valueOf(client.getState().getBalance()));
+        lbCreditsContent = new JLabel(String.valueOf(client.getBalance()));
         creditsPanel.add(lbCredits);
         creditsPanel.add(lbCreditsContent);
         mainPanel.add(creditsPanel);
         
         JPanel milesPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JLabel lbMiles = new JLabel("Nb miles :");
-        lbMilesContent = new JLabel(String.valueOf(client.getState().getMiles()));
+        lbMilesContent = new JLabel(String.valueOf(client.getMiles()));
         milesPanel.add(lbMiles);
         milesPanel.add(lbMilesContent);
         mainPanel.add(milesPanel);
         
         JPanel statusPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JLabel lbStatus = new JLabel("Status :");
-        lbStatusContent = new JLabel(String.valueOf(client.getState().toString()));
+        lbStatusContent = new JLabel(String.valueOf(client.getStateToString()));
         statusPanel.add(lbStatus);
         statusPanel.add(lbStatusContent);
         mainPanel.add(statusPanel);
@@ -81,9 +81,10 @@ public class DetailsClientWindow implements Observer {
     }
     
     @Override
-    public void update() {
-        lbCreditsContent.setText(String.valueOf(client.getState().getBalance()));
-        lbMilesContent.setText(String.valueOf(client.getState().getMiles()));
-        lbStatusContent.setText(String.valueOf(client.getState().toString()));
+    public void update(Subject subject) {
+        Client client = (Client) subject;
+        lbCreditsContent.setText(String.valueOf(client.getBalance()));
+        lbMilesContent.setText(String.valueOf(client.getMiles()));
+        lbStatusContent.setText(String.valueOf(client.getStateToString()));
     }
 }

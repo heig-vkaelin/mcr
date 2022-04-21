@@ -7,5 +7,5 @@ package observers;
  * @author Valentin Kaelin
  */
 public interface Observer {
-    void update();
+    void update(Subject subject);
 }
