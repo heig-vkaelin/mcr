@@ -14,7 +14,7 @@ import java.awt.*;
  * @author Valentin Kaelin
  */
 public class DetailsClientWindow implements Observer {
-    private static final int INITIAL_WIDTH = 500;
+    private static final int INITIAL_WIDTH = 700;
     private static final int INITIAL_HEIGHT = 250;
     
     private final JLabel lbCreditsContent;
