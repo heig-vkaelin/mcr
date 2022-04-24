@@ -13,20 +13,23 @@ import java.awt.*;
  * @author Valentin Kaelin
  */
 public class Client extends Subject {
+    private static int counter = 0;
+    private final int id;
+    
     private AccountState state;
     
-    private final int id;
-    static int counter = 0;
+    private final String firstName;
+    private final String lastName;
     
-    protected String firstName;
-    protected String lastName;
-    
+    private String lastAction;
     
     /**
-     * Constructeur par défaut de Client
+     * Constructeur d'un client défini par un prénom et un nom
+     *
+     * @param firstName : prénom du client
+     * @param lastName  : nom du client
      */
     public Client(String firstName, String lastName) {
-        // TODO: check pk pas public avant
         this.firstName = firstName;
         this.lastName = lastName;
         id = counter++;
@@ -34,108 +37,124 @@ public class Client extends Subject {
     }
     
     /**
+     * Modifie la dernière action effectuée par l'utilisateur
+     */
+    private void updateLastAction(String format, Object... args) {
+        lastAction = String.format(format, args) +
+                String.format(" Balance: %.2f. State: %s.\n",
+                        getBalance(), getActualStateToString());
+    }
+    
+    /**
      * Méthode permettant de changer l'état du compte
      *
-     * @param newState
+     * @param newState : nouvel état
      */
     public void setState(AccountState newState) {
         this.state = newState;
     }
     
     /**
-     * Renvoi les informations du compte
+     * Dépose de l'argent sur le compte
      *
-     */
-    public String info() {
-        return firstName + " " + lastName + " " + state;
-    }
-    
-    /**
-     * Depose de l'argent sur le compte
-     *
-     * @param amount
+     * @param amount : montant à déposer
      */
     public void deposit(double amount) {
         state.deposit(amount);
+        updateLastAction("Deposited: %.2f. ", amount);
         notifyObservers();
     }
     
     /**
      * Procède au paiement d'un vol via de l'argent
      *
-     * @param ticket prix du vol
+     * @param ticket ticket du vol contenant son prix
      */
     public void payFlightMoney(Ticket ticket) {
-        state.payFlightMoney(ticket);
+        if (state.payFlightMoney(ticket))
+            updateLastAction("Paid flight %s with money: %s.",
+                    ticket.getFlight(), ticket);
+        else
+            updateLastAction("Payment of the flight with money FAILED");
+        
         notifyObservers();
     }
     
     /**
      * Procède au paiement d'un vol via des miles
      *
-     * @param ticket prix du vol
+     * @param ticket ticket du vol contenant son prix
      */
     public void payFlightMiles(Ticket ticket) {
-        state.payFlightMiles(ticket);
+        if (state.payFlightMiles(ticket))
+            updateLastAction("Paid flight %s with miles: %d miles",
+                    ticket.getFlight(), ticket.getMilesPrice());
+        else
+            updateLastAction("Payment of the flight with miles FAILED");
+        
         notifyObservers();
     }
     
     /**
-     * Renvoi l'id du client
-     *
-     * @return id du client
+     * @return l'identifiant unique du client
      */
     public int getId() {
         return id;
     }
     
     /**
-     * Renvoi le prénom du client
-     *
-     * @return prénom du client
+     * @return le prénom du client
      */
     public String getFirstName() {
         return firstName;
     }
     
     /**
-     * Renvoi le nom du client
-     *
-     * @return nom du client
+     * @return le nom du client
      */
     public String getLastName() {
         return lastName;
     }
     
     /**
-     * Retourne la couleur de l'état du compte
-     * @return couleur de l'état du compte
+     * @return le nom et prénom du client
      */
-    public Color getColor(){
+    public String getFullName() {
+        return lastName + " " + firstName;
+    }
+    
+    /**
+     * @return la dernière action effectuée par le client
+     */
+    public String getLastAction() {
+        return lastAction;
+    }
+    
+    /**
+     * @return la couleur de l'état du compte
+     */
+    public Color getColor() {
         return state.getColor();
     }
     
     /**
-     * Renvoi le solde du compte
-     * @return solde du compte
+     * @return le solde du compte
      */
-    public double getBalance(){
+    public double getBalance() {
         return state.getBalance();
     }
     
     /**
-     * Renvoi le nombre de miles du compte
-     * @return
+     * @return le nombre de miles du compte
      */
-    public double getMiles(){
+    public double getMiles() {
         return state.getMiles();
     }
     
     /**
-     * Renvoi l'état du compte sous forme de string
      * @return état du compte sous forme de string
      */
-    public String getStateToString(){
+    public String getActualStateToString() {
         return state.toString();
     }
     
@@ -146,6 +165,15 @@ public class Client extends Subject {
      */
     @Override
     public String toString() {
-        return lastName + " " + firstName;
+        return getFullName();
+    }
+    
+    /**
+     * Affiche les informations détaillées du compte
+     *
+     * @return informations détaillées du compte sous forme de string
+     */
+    public String toStringDetailed() {
+        return this + " " + getActualStateToString();
     }
 }

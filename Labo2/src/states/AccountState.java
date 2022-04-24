@@ -79,18 +79,14 @@ public abstract class AccountState {
     }
     
     /**
-     * Retourne le montant d'argent du compte
-     *
-     * @return montant d'argent du compte
+     * @return le montant d'argent disponible sur le compte
      */
     public double getBalance() {
         return balance;
     }
     
     /**
-     * Retourne le nombre de miles du compte
-     *
-     * @return nombre de miles du compte
+     * @return le nombre de miles du compte
      */
     public double getMiles() {
         return miles;
@@ -102,16 +98,12 @@ public abstract class AccountState {
     protected abstract void stateChangeCheck();
     
     /**
-     * Retourne le coefficient de gain de miles
-     *
-     * @return coefficient de gain de miles
+     * @return le coefficient de gain de miles
      */
     protected abstract double coefMiles();
     
     /**
-     * Retourne la couleur de l'état du compte
-     *
-     * @return
+     * @return la couleur de l'état du compte
      */
     public abstract Color getColor();
 }

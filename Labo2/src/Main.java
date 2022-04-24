@@ -13,6 +13,6 @@ public class Main {
                 new Flight("LX2", 500, 120),
         };
         MainWindow window = new MainWindow(clients, flights);
-        window.setTitle("Clients Manager");
+//        window.setTitle("Clients Manager");
     }
 }

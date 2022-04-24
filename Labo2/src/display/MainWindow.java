@@ -7,7 +7,6 @@ import flights.TicketType;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyAdapter;
 
 /**
  * Fenêtre principale de l'application
@@ -15,11 +14,10 @@ import java.awt.event.KeyAdapter;
  * @author Alexandre Jaquier
  * @author Valentin Kaelin
  */
-public class MainWindow implements Displayer {
+public class MainWindow {
     private static final int INITIAL_WIDTH = 700;
     private static final int INITIAL_HEIGHT = 200;
     
-    private final JPanel mainPanel;
     public final JFrame frame;
     
     private final Client[] clients;
@@ -29,21 +27,14 @@ public class MainWindow implements Displayer {
     private JComboBox<Ticket> cbTickets;
     
     /**
-     * Constructeur privé du Singleton
+     * Crée les différents composants de la fenêtre
      */
-    public MainWindow(Client[] clients, Flight[] flights) {
-        this.clients = clients;
-        this.flights = flights;
-        
-        frame = new JFrame();
-        frame.setSize(INITIAL_WIDTH, INITIAL_HEIGHT);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
-        mainPanel = new JPanel();
+    private void createComponents() {
+        // MainPanel
+        JPanel mainPanel = new JPanel();
         mainPanel.setBackground(Color.WHITE);
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-        
-        // DEBUT INITIALISATION
+        frame.setContentPane(mainPanel);
         
         // Client
         JPanel clientPanel = new JPanel();
@@ -66,7 +57,12 @@ public class MainWindow implements Displayer {
         JButton btnAddCreditsClient = new JButton("Add");
         btnAddCreditsClient.addActionListener(e -> {
             Client client = clients[cbAccounts.getSelectedIndex()];
-            double amount = Double.parseDouble(txtCredits.getText());
+            double amount;
+            try {
+                amount = Double.parseDouble(txtCredits.getText());
+            } catch (NumberFormatException ignored) {
+                return;
+            }
             client.deposit(amount);
             txtCredits.setText("");
         });
@@ -86,13 +82,11 @@ public class MainWindow implements Displayer {
         JButton btnBookCashFlight = new JButton("Book (cash)");
         btnBookCashFlight.addActionListener(e -> {
             Client client = clients[cbAccounts.getSelectedIndex()];
-            // TODO
             client.payFlightMoney((Ticket) cbTickets.getSelectedItem());
         });
         JButton btnBookMilesFlight = new JButton("Book (miles)");
         btnBookMilesFlight.addActionListener(e -> {
             Client client = clients[cbAccounts.getSelectedIndex()];
-            // TODO
             client.payFlightMiles((Ticket) cbTickets.getSelectedItem());
         });
         flightPanel.add(lbFlight);
@@ -116,39 +110,35 @@ public class MainWindow implements Displayer {
         buttonsPanel.add(btnStatuses);
         buttonsPanel.add(btnQuit);
         mainPanel.add(buttonsPanel);
-        
-        frame.setContentPane(mainPanel);
-        
-        // FIN DE L'INITIALISATION
-        
-        frame.setVisible(true);
     }
     
-    @Override
-    public int getWidth() {
-        return mainPanel.getWidth();
-    }
-    
-    @Override
-    public int getHeight() {
-        return mainPanel.getHeight();
-    }
-    
-    @Override
-    public void setTitle(String title) {
-        frame.setTitle(title);
-    }
-    
-    @Override
-    public void addKeyListener(KeyAdapter ka) {
-        frame.addKeyListener(ka);
-    }
-    
+    /**
+     * Met à jour les valeurs de la ComboBox contenant les tickets
+     */
     private void updateTicketTypes() {
         Flight flight = (Flight) cbFlights.getSelectedItem();
         cbTickets.removeAllItems();
         for (TicketType type : TicketType.values()) {
             cbTickets.addItem(new Ticket(flight, type));
         }
+    }
+    
+    /**
+     * Crée une fenêtre principale de l'application
+     *
+     * @param clients : les clients de l'application
+     * @param flights : les vols disponibles dans l'application
+     */
+    public MainWindow(Client[] clients, Flight[] flights) {
+        this.clients = clients;
+        this.flights = flights;
+        
+        frame = new JFrame();
+        frame.setSize(INITIAL_WIDTH, INITIAL_HEIGHT);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        createComponents();
+        
+        frame.setVisible(true);
     }
 }

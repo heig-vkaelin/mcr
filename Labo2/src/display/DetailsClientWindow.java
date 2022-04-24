@@ -3,32 +3,35 @@ package display;
 import account.Client;
 import observers.Observer;
 import observers.Subject;
-import states.AccountState;
 
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Fenêtre affichant les détails d'un client
+ *
+ * @author Alexandre Jaquier
+ * @author Valentin Kaelin
+ */
 public class DetailsClientWindow implements Observer {
     private static final int INITIAL_WIDTH = 500;
     private static final int INITIAL_HEIGHT = 250;
     
-    private final Client client;
+    private final JLabel lbCreditsContent;
+    private final JLabel lbMilesContent;
+    private final JLabel lbStatusContent;
+    private final JLabel lbLastActionContent;
     
-    private final JFrame frame;
-    private JLabel lbLastNameContent;
-    private JLabel lbFirstNameContent;
-    private JLabel lbCreditsContent;
-    private JLabel lbMilesContent;
-    private JLabel lbStatusContent;
-    private JLabel lbLastActionContent;
-    
+    /**
+     * Crée une fenêtre affichant les détails du client souhaité
+     *
+     * @param client : client sélectionné
+     */
     public DetailsClientWindow(Client client) {
-        this.client = client;
-        frame = new JFrame();
+        JFrame frame = new JFrame();
         frame.setSize(INITIAL_WIDTH, INITIAL_HEIGHT);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setTitle("Details of client #" + client.getId());
-        
         
         JPanel mainPanel = new JPanel();
         mainPanel.setBackground(Color.WHITE);
@@ -36,14 +39,14 @@ public class DetailsClientWindow implements Observer {
         
         JPanel lastNamePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JLabel lbLastName = new JLabel("Last name :");
-        lbLastNameContent = new JLabel(client.getLastName());
+        JLabel lbLastNameContent = new JLabel(client.getLastName());
         lastNamePanel.add(lbLastName);
         lastNamePanel.add(lbLastNameContent);
         mainPanel.add(lastNamePanel);
         
         JPanel firstNamePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JLabel lbFirstName = new JLabel("First name :");
-        lbFirstNameContent = new JLabel(client.getFirstName());
+        JLabel lbFirstNameContent = new JLabel(client.getFirstName());
         firstNamePanel.add(lbFirstName);
         firstNamePanel.add(lbFirstNameContent);
         mainPanel.add(firstNamePanel);
@@ -64,14 +67,14 @@ public class DetailsClientWindow implements Observer {
         
         JPanel statusPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JLabel lbStatus = new JLabel("Status :");
-        lbStatusContent = new JLabel(String.valueOf(client.getStateToString()));
+        lbStatusContent = new JLabel(String.valueOf(client.getActualStateToString()));
         statusPanel.add(lbStatus);
         statusPanel.add(lbStatusContent);
         mainPanel.add(statusPanel);
         
         JPanel lastActionPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JLabel lbLastAction = new JLabel("Last action :");
-        lbLastActionContent = new JLabel("");
+        lbLastActionContent = new JLabel(client.getLastAction());
         lastActionPanel.add(lbLastAction);
         lastActionPanel.add(lbLastActionContent);
         mainPanel.add(lastActionPanel);
@@ -85,6 +88,7 @@ public class DetailsClientWindow implements Observer {
         Client client = (Client) subject;
         lbCreditsContent.setText(String.valueOf(client.getBalance()));
         lbMilesContent.setText(String.valueOf(client.getMiles()));
-        lbStatusContent.setText(String.valueOf(client.getStateToString()));
+        lbStatusContent.setText(String.valueOf(client.getActualStateToString()));
+        lbLastActionContent.setText(client.getLastAction());
     }
 }
