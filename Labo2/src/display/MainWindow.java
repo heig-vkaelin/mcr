@@ -18,7 +18,7 @@ public class MainWindow {
     private static final int INITIAL_WIDTH = 700;
     private static final int INITIAL_HEIGHT = 200;
     
-    public final JFrame frame;
+    private final JFrame frame;
     
     private final Client[] clients;
     private final Flight[] flights;

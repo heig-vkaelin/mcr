@@ -7,6 +7,8 @@ package states;
  * @author Valentin Kaelin
  */
 public class PlatiniumStateLock extends PlatiniumState {
+    public static double LOWER_LIMIT_BALANCE = 100000;
+    
     /**
      * Constructeur de la classe PlatiniumStateLock
      *

@@ -33,7 +33,7 @@ public class SilverState extends AccountState {
      * Methode permettant de changer l'état du compte si besoin
      */
     protected void stateChangeCheck() {
-        if (miles >= 1000) {
+        if (miles >= GoldState.LOWER_LIMIT) {
             client.setState(new GoldState(this));
         }
     }

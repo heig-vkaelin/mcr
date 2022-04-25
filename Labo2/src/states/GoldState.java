@@ -9,6 +9,8 @@ import java.awt.*;
  * @author Valentin Kaelin
  */
 public class GoldState extends AccountState {
+    public static double LOWER_LIMIT = 1000;
+    
     /**
      * Constructeur de la classe GoldState
      *
@@ -22,9 +24,9 @@ public class GoldState extends AccountState {
      * Methode permettant de changer l'état du compte si besoin
      */
     protected void stateChangeCheck() {
-        if (miles >= 10000) {
+        if (miles >= PlatiniumState.LOWER_LIMIT) {
             client.setState(new PlatiniumState(this));
-        } else if (miles < 1000) {
+        } else if (miles < LOWER_LIMIT) {
             client.setState(new SilverState(this));
         }
     }
