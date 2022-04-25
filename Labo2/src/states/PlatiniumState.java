@@ -3,7 +3,7 @@ package states;
 import java.awt.*;
 
 /**
- * Classe representant l'etat Platinium d'un compte
+ * Classe représentant l'état Platinium d'un compte
  *
  * @author Alexandre Jaquier
  * @author Valentin Kaelin
@@ -35,7 +35,7 @@ public class PlatiniumState extends AccountState {
      * @return le coefficient miles de l'état Platinium
      */
     @Override
-    protected double coefMiles() {
+    protected double coeffMiles() {
         return 1;
     }
     

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Classe abstraite sujet.
+ * Classe abstraite modélisant un Sujet.
  *
  * @author Alexandre Jaquier
  * @author Valentin Kaelin

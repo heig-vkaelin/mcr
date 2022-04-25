@@ -35,7 +35,7 @@ public class GoldState extends AccountState {
      * @return le coefficient de miles de l'état Gold
      */
     @Override
-    protected double coefMiles() {
+    protected double coeffMiles() {
         return 0.5;
     }
     

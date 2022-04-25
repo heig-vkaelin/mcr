@@ -2,7 +2,18 @@ import account.Client;
 import display.MainWindow;
 import flights.Flight;
 
-public class Main {
+/**
+ * Classe principale de l'application
+ *
+ * @author Alexandre Jaquier
+ * @author Valentin Kaelin
+ */
+public class App {
+    /**
+     * Point d'entrée de l'application
+     *
+     * @param args : arguments - non utilisés ici
+     */
     public static void main(String[] args) {
         Client[] clients = new Client[]{
                 new Client("Guy", "Boucher"),
@@ -12,7 +23,7 @@ public class Main {
                 new Flight("LX1", 1200, 420),
                 new Flight("LX2", 500, 120),
         };
-        MainWindow window = new MainWindow(clients, flights);
-//        window.setTitle("Clients Manager");
+        
+        new MainWindow(clients, flights);
     }
 }

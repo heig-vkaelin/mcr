@@ -59,7 +59,7 @@ public abstract class AccountState {
         if (balance - ticket.getMoneyPrice() < 0)
             return false;
         balance -= ticket.getMoneyPrice();
-        miles += ticket.getFlight().getDistance() + ticket.getFlight().getDistance() * coefMiles();
+        miles += ticket.getFlight().getDistance() + ticket.getFlight().getDistance() * coeffMiles();
         stateChangeCheck();
         return true;
     }
@@ -100,7 +100,7 @@ public abstract class AccountState {
     /**
      * @return le coefficient de gain de miles
      */
-    protected abstract double coefMiles();
+    protected abstract double coeffMiles();
     
     /**
      * @return la couleur de l'état du compte

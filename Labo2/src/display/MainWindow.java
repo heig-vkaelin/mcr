@@ -136,6 +136,7 @@ public class MainWindow {
         frame = new JFrame();
         frame.setSize(INITIAL_WIDTH, INITIAL_HEIGHT);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setTitle("Clients Manager");
         
         createComponents();
         

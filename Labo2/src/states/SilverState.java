@@ -5,7 +5,7 @@ import account.Client;
 import java.awt.*;
 
 /**
- * Classe representant l'etat Silver d'un compte
+ * Classe représentant l'état Silver d'un compte
  *
  * @author Alexandre Jaquier
  * @author Valentin Kaelin
@@ -44,7 +44,7 @@ public class SilverState extends AccountState {
      * @return le coefficient miles de l'état Silver
      */
     @Override
-    protected double coefMiles() {
+    protected double coeffMiles() {
         return 0.1;
     }
     

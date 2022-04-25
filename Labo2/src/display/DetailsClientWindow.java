@@ -37,6 +37,7 @@ public class DetailsClientWindow implements Observer {
         mainPanel.setBackground(Color.WHITE);
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
         
+        // Nom de famille
         JPanel lastNamePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JLabel lbLastName = new JLabel("Last name :");
         JLabel lbLastNameContent = new JLabel(client.getLastName());
@@ -44,6 +45,7 @@ public class DetailsClientWindow implements Observer {
         lastNamePanel.add(lbLastNameContent);
         mainPanel.add(lastNamePanel);
         
+        // Prénom
         JPanel firstNamePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JLabel lbFirstName = new JLabel("First name :");
         JLabel lbFirstNameContent = new JLabel(client.getFirstName());
@@ -51,6 +53,7 @@ public class DetailsClientWindow implements Observer {
         firstNamePanel.add(lbFirstNameContent);
         mainPanel.add(firstNamePanel);
         
+        // Crédits
         JPanel creditsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JLabel lbCredits = new JLabel("Credits :");
         lbCreditsContent = new JLabel(String.valueOf(client.getBalance()));
@@ -58,6 +61,7 @@ public class DetailsClientWindow implements Observer {
         creditsPanel.add(lbCreditsContent);
         mainPanel.add(creditsPanel);
         
+        // Miles
         JPanel milesPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JLabel lbMiles = new JLabel("Nb miles :");
         lbMilesContent = new JLabel(String.valueOf(client.getMiles()));
@@ -65,6 +69,7 @@ public class DetailsClientWindow implements Observer {
         milesPanel.add(lbMilesContent);
         mainPanel.add(milesPanel);
         
+        // Status
         JPanel statusPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JLabel lbStatus = new JLabel("Status :");
         lbStatusContent = new JLabel(String.valueOf(client.getActualStateToString()));
@@ -72,6 +77,7 @@ public class DetailsClientWindow implements Observer {
         statusPanel.add(lbStatusContent);
         mainPanel.add(statusPanel);
         
+        // Dernière action
         JPanel lastActionPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JLabel lbLastAction = new JLabel("Last action :");
         lbLastActionContent = new JLabel(client.getLastAction());
