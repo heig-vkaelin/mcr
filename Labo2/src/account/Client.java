@@ -38,6 +38,8 @@ public class Client extends Subject {
     
     /**
      * Modifie la dernière action effectuée par l'utilisateur
+     * @param format : format de la dernière action
+     * @param args : arguments de la dernière action
      */
     private void updateLastAction(String format, Object... args) {
         lastAction = String.format(format, args) +

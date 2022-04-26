@@ -1,0 +1,1061 @@
+import account.Client;
+import display.MainWindow;
+import flights.Flight;
+
+/**
+ * Classe principale de l'application
+ *
+ * @author Alexandre Jaquier
+ * @author Valentin Kaelin
+ */
+public class App {
+    /**
+     * Point d'entrée de l'application
+     *
+     * @param args : arguments - non utilisés ici
+     */
+    public static void main(String[] args) {
+        Client[] clients = new Client[]{
+                new Client("Guy", "Boucher"),
+                new Client("Gerd", "Zenhäuser"),
+        };
+        Flight[] flights = new Flight[]{
+                new Flight("LX1", 1200, 300),
+                new Flight("LX2", 500, 120),
+        };
+        
+        new MainWindow(clients, flights);
+    }
+}
+
+package account;
+
+import flights.Ticket;
+import observers.Subject;
+import states.*;
+
+import java.awt.*;
+
+/**
+ * Classe permettant de gérer un compte utilisateur possédant de multiple état
+ *
+ * @author Alexandre Jaquier
+ * @author Valentin Kaelin
+ */
+public class Client extends Subject {
+    private static int counter = 0;
+    private final int id;
+    
+    private AccountState state;
+    
+    private final String firstName;
+    private final String lastName;
+    
+    private String lastAction;
+    
+    /**
+     * Constructeur d'un client défini par un prénom et un nom
+     *
+     * @param firstName : prénom du client
+     * @param lastName  : nom du client
+     */
+    public Client(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        id = counter++;
+        state = new SilverState(this);
+    }
+    
+    /**
+     * Modifie la dernière action effectuée par l'utilisateur
+     * @param format : format de la dernière action
+     * @param args : arguments de la dernière action
+     */
+    private void updateLastAction(String format, Object... args) {
+        lastAction = String.format(format, args) +
+                String.format(" Balance: %.2f. State: %s.\n",
+                        getBalance(), getActualStateToString());
+    }
+    
+    /**
+     * Méthode permettant de changer l'état du compte
+     *
+     * @param newState : nouvel état
+     */
+    public void setState(AccountState newState) {
+        this.state = newState;
+    }
+    
+    /**
+     * Dépose de l'argent sur le compte
+     *
+     * @param amount : montant à déposer
+     */
+    public void deposit(double amount) {
+        state.deposit(amount);
+        updateLastAction("Deposited: %.2f. ", amount);
+        notifyObservers();
+    }
+    
+    /**
+     * Procède au paiement d'un vol via de l'argent
+     *
+     * @param ticket ticket du vol contenant son prix
+     */
+    public void payFlightMoney(Ticket ticket) {
+        if (state.payFlightMoney(ticket))
+            updateLastAction("Paid flight %s with money: %s.",
+                    ticket.getFlight(), ticket);
+        else
+            updateLastAction("Payment of the flight with money FAILED");
+        
+        notifyObservers();
+    }
+    
+    /**
+     * Procède au paiement d'un vol via des miles
+     *
+     * @param ticket ticket du vol contenant son prix
+     */
+    public void payFlightMiles(Ticket ticket) {
+        if (state.payFlightMiles(ticket))
+            updateLastAction("Paid flight %s with miles: %d miles",
+                    ticket.getFlight(), ticket.getMilesPrice());
+        else
+            updateLastAction("Payment of the flight with miles FAILED");
+        
+        notifyObservers();
+    }
+    
+    /**
+     * @return l'identifiant unique du client
+     */
+    public int getId() {
+        return id;
+    }
+    
+    /**
+     * @return le prénom du client
+     */
+    public String getFirstName() {
+        return firstName;
+    }
+    
+    /**
+     * @return le nom du client
+     */
+    public String getLastName() {
+        return lastName;
+    }
+    
+    /**
+     * @return le nom et prénom du client
+     */
+    public String getFullName() {
+        return lastName + " " + firstName;
+    }
+    
+    /**
+     * @return la dernière action effectuée par le client
+     */
+    public String getLastAction() {
+        return lastAction;
+    }
+    
+    /**
+     * @return la couleur de l'état du compte
+     */
+    public Color getColor() {
+        return state.getColor();
+    }
+    
+    /**
+     * @return le solde du compte
+     */
+    public double getBalance() {
+        return state.getBalance();
+    }
+    
+    /**
+     * @return le nombre de miles du compte
+     */
+    public double getMiles() {
+        return state.getMiles();
+    }
+    
+    /**
+     * @return état du compte sous forme de string
+     */
+    public String getActualStateToString() {
+        return state.toString();
+    }
+    
+    /**
+     * Affiche les informations du compte
+     *
+     * @return informations du compte sous forme de string
+     */
+    @Override
+    public String toString() {
+        return getFullName();
+    }
+    
+    /**
+     * Affiche les informations détaillées du compte
+     *
+     * @return informations détaillées du compte sous forme de string
+     */
+    public String toStringDetailed() {
+        return this + " " + getActualStateToString();
+    }
+}
+
+package states;
+
+import account.Client;
+import flights.Ticket;
+
+import java.awt.*;
+
+/**
+ * Classe permettant de gérer les états d'un compte client
+ *
+ * @author Alexandre Jaquier
+ * @author Valentin Kaelin
+ */
+public abstract class AccountState {
+    protected Client client;
+    
+    protected double balance;
+    protected double miles;
+    
+    /**
+     * Constructeur de base d'un compte
+     *
+     * @param client client du compte
+     */
+    protected AccountState(Client client) {
+        this.client = client;
+        balance = 0;
+        miles = 0;
+    }
+    
+    /**
+     * Constructeur de copie d'un compte
+     *
+     * @param oldState état à copier
+     */
+    protected AccountState(AccountState oldState) {
+        client = oldState.client;
+        balance = oldState.balance;
+        miles = oldState.miles;
+    }
+    
+    /**
+     * Dépose de l'argent sur le compte
+     *
+     * @param amount montant à déposer
+     */
+    public void deposit(double amount) {
+        balance += amount;
+        stateChangeCheck();
+    }
+    
+    /**
+     * Achète un ticket pour un vol
+     *
+     * @param ticket ticket à acheter
+     * @return si l'achat a pu être fait ou non
+     */
+    public boolean payFlightMoney(Ticket ticket) {
+        if (balance - ticket.getMoneyPrice() < 0)
+            return false;
+        balance -= ticket.getMoneyPrice();
+        miles += ticket.getFlight().getDistance() + ticket.getFlight().getDistance() * coeffMiles();
+        stateChangeCheck();
+        return true;
+    }
+    
+    /**
+     * Achète un ticket pour un vol
+     *
+     * @param ticket ticket à acheter
+     * @return si l'achat a pu être fait ou non
+     */
+    public boolean payFlightMiles(Ticket ticket) {
+        if (miles - ticket.getMilesPrice() < 0)
+            return false;
+        miles -= ticket.getMilesPrice();
+        stateChangeCheck();
+        return true;
+    }
+    
+    /**
+     * @return le montant d'argent disponible sur le compte
+     */
+    public double getBalance() {
+        return balance;
+    }
+    
+    /**
+     * @return le nombre de miles du compte
+     */
+    public double getMiles() {
+        return miles;
+    }
+    
+    /**
+     * Regarde si l'état du compte doit changer et change l'état si c'est le cas
+     */
+    protected abstract void stateChangeCheck();
+    
+    /**
+     * @return le coefficient de gain de miles
+     */
+    protected abstract double coeffMiles();
+    
+    /**
+     * @return la couleur de l'état du compte
+     */
+    public abstract Color getColor();
+}
+
+package states;
+
+import account.Client;
+
+import java.awt.*;
+
+/**
+ * Classe représentant l'état Silver d'un compte
+ *
+ * @author Alexandre Jaquier
+ * @author Valentin Kaelin
+ */
+public class SilverState extends AccountState {
+    /**
+     * Constructeur de copie de la classe SilverState
+     *
+     * @param oldState l'état précédent du compte
+     */
+    public SilverState(AccountState oldState) {
+        super(oldState);
+    }
+    
+    /**
+     * Constructeur de la classe SilverState
+     *
+     * @param client le client du compte
+     */
+    public SilverState(Client client) {
+        super(client);
+    }
+    
+    /**
+     * Methode permettant de changer l'état du compte si besoin
+     */
+    protected void stateChangeCheck() {
+        if (miles >= GoldState.LOWER_LIMIT) {
+            client.setState(new GoldState(this));
+        }
+    }
+    
+    /**
+     * Methode permettant de connaître le coefficient miles de l'état Silver
+     *
+     * @return le coefficient miles de l'état Silver
+     */
+    @Override
+    protected double coeffMiles() {
+        return 0.1;
+    }
+    
+    /**
+     * Methode permettant d'afficher l'état Silver
+     *
+     * @return l'état Silver sous forme de String
+     */
+    @Override
+    public String toString() {
+        return "SILVER";
+    }
+    
+    /**
+     * Méthode permettant de connaitre la couleur de l'état Silver
+     *
+     * @return la couleur de l'état Silver
+     */
+    @Override
+    public Color getColor() {
+        return Color.gray;
+    }
+}
+
+package states;
+
+import java.awt.*;
+
+/**
+ * Classe représentant l'état Gold d'un compte
+ *
+ * @author Alexandre Jaquier
+ * @author Valentin Kaelin
+ */
+public class GoldState extends AccountState {
+    public static double LOWER_LIMIT = 1000;
+    
+    /**
+     * Constructeur de la classe GoldState
+     *
+     * @param oldState l'état précédent du compte
+     */
+    public GoldState(AccountState oldState) {
+        super(oldState);
+    }
+    
+    /**
+     * Methode permettant de changer l'état du compte si besoin
+     */
+    protected void stateChangeCheck() {
+        if (miles >= PlatiniumState.LOWER_LIMIT) {
+            client.setState(new PlatiniumState(this));
+        } else if (miles < LOWER_LIMIT) {
+            client.setState(new SilverState(this));
+        }
+    }
+    
+    /**
+     * Méthode permettant de connaître le coefficient de miles de l'état Gold
+     *
+     * @return le coefficient de miles de l'état Gold
+     */
+    @Override
+    protected double coeffMiles() {
+        return 0.5;
+    }
+    
+    /**
+     * Méthode permettant d'afficher l'état Gold
+     *
+     * @return l'état Gold sous forme de String
+     */
+    @Override
+    public String toString() {
+        return "GOLD";
+    }
+    
+    /**
+     * Méthode permettant d'avoir la couleur de l'état Gold
+     *
+     * @return la couleur de l'état Gold
+     */
+    @Override
+    public Color getColor() {
+        return Color.orange;
+    }
+}
+
+package states;
+
+import java.awt.*;
+
+/**
+ * Classe représentant l'état Platinium d'un compte
+ *
+ * @author Alexandre Jaquier
+ * @author Valentin Kaelin
+ */
+public class PlatiniumState extends AccountState {
+    public static double LOWER_LIMIT = 10000;
+    
+    /**
+     * Constructeur de la classe PlatiniumState
+     *
+     * @param oldState état précédent du compte
+     */
+    public PlatiniumState(AccountState oldState) {
+        super(oldState);
+    }
+    
+    /**
+     * Methode permettant de changer l'état du compte si besoin
+     */
+    protected void stateChangeCheck() {
+        if (miles < LOWER_LIMIT) {
+            client.setState(new GoldState(this));
+        } else if (balance > PlatiniumStateLock.LOWER_LIMIT_BALANCE) {
+            client.setState(new PlatiniumStateLock(this));
+        }
+    }
+    
+    /**
+     * Methode permettant de connaître le coefficient miles de l'état Platinium
+     *
+     * @return le coefficient miles de l'état Platinium
+     */
+    @Override
+    protected double coeffMiles() {
+        return 1;
+    }
+    
+    /**
+     * Methode permettant d'afficher l'état Platinium
+     *
+     * @return l'état Platinium sous forme de String
+     */
+    @Override
+    public String toString() {
+        return "PLATINIUM";
+    }
+    
+    /**
+     * Methode permettant de connaitre la couleur de l'état Platinium
+     *
+     * @return la couleur de l'état Platinium
+     */
+    @Override
+    public Color getColor() {
+        return Color.cyan;
+    }
+}
+
+package states;
+
+/**
+ * Classe représentant l'état Platinium inchangeable d'un compte
+ *
+ * @author Alexandre Jaquier
+ * @author Valentin Kaelin
+ */
+public class PlatiniumStateLock extends PlatiniumState {
+    public static double LOWER_LIMIT_BALANCE = 100000;
+    
+    /**
+     * Constructeur de la classe PlatiniumStateLock
+     *
+     * @param oldState l'état précédent du compte
+     */
+    public PlatiniumStateLock(AccountState oldState) {
+        super(oldState);
+    }
+    
+    /**
+     * Méthode permettant de changer de compte, ici l'état est vérouillé
+     */
+    @Override
+    protected void stateChangeCheck() {
+    }
+}
+
+package observers;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Classe abstraite modélisant un Sujet.
+ *
+ * @author Alexandre Jaquier
+ * @author Valentin Kaelin
+ */
+public abstract class Subject {
+    List<Observer> observers = new ArrayList<>();
+    
+    /**
+     * Attache un observateur au sujet
+     *
+     * @param o Observateur à attacher.
+     */
+    public void attach(Observer o) {
+        if (!observers.contains(o))
+            observers.add(o);
+    }
+    
+    /**
+     * Détache un observateur du sujet
+     *
+     * @param o Observateur à détacher.
+     */
+    public void detach(Observer o) {
+        observers.remove(o);
+    }
+    
+    /**
+     * Notifie tous les observateurs du sujet
+     */
+    protected void notifyObservers() {
+        for (Observer o : observers) {
+            o.update(this);
+        }
+    }
+}
+
+package observers;
+
+/**
+ * Interface Observer
+ *
+ * @author Alexandre Jaquier
+ * @author Valentin Kaelin
+ */
+public interface Observer {
+    void update(Subject subject);
+}
+
+package flights;
+
+/**
+ * Classe représentant un vol
+ *
+ * @author Alexandre Jaquier
+ * @author Valentin Kaelin
+ */
+public class Flight {
+    private final String name;
+    
+    private final int distance; // en [miles]
+    
+    private final int price; // en [$]
+    
+    /**
+     * Crée un nouveau vol
+     *
+     * @param name     : nom du vol
+     * @param distance : distance du vol
+     * @param price    : prix du vol
+     */
+    public Flight(String name, int distance, int price) {
+        this.name = name;
+        this.distance = distance;
+        this.price = price;
+    }
+    
+    /**
+     * @return le prix du vol
+     */
+    public int getPrice() {
+        return price;
+    }
+    
+    /**
+     * @return la distance du vol
+     */
+    public int getDistance() {
+        return distance;
+    }
+    
+    @Override
+    public String toString() {
+        return name + " (" + distance + " miles)";
+    }
+}
+
+package flights;
+
+/**
+ * Classe représentant un ticket pour un vol spécifique
+ * Le ticket a également un type donné
+ *
+ * @author Alexandre Jaquier
+ * @author Valentin Kaelin
+ */
+public class Ticket {
+    private final Flight flight;
+    private final TicketType type;
+    private final int moneyPrice;
+    private final int milesPrice;
+    
+    /**
+     * Crée un nouveau ticket pour le vol du type souhaité
+     *
+     * @param flight : vol du ticket
+     * @param type   : type du ticket
+     */
+    public Ticket(Flight flight, TicketType type) {
+        this.flight = flight;
+        this.type = type;
+        
+        moneyPrice = flight.getPrice() * type.getCoeffPrice();
+        milesPrice = flight.getPrice() * type.getCoeffMiles();
+    }
+    
+    /**
+     * @return le vol du ticket
+     */
+    public Flight getFlight() {
+        return flight;
+    }
+    
+    /**
+     * @return le type du ticket
+     */
+    public TicketType getType() {
+        return type;
+    }
+    
+    /**
+     * @return le prix en dollars du ticket
+     */
+    public int getMoneyPrice() {
+        return moneyPrice;
+    }
+    
+    /**
+     * @return le prix en miles du ticket
+     */
+    public int getMilesPrice() {
+        return milesPrice;
+    }
+    
+    @Override
+    public String toString() {
+        return type + " " + moneyPrice + "$";
+    }
+}
+
+package flights;
+
+/**
+ * Enum représentant les différents types de tickets possibles.
+ * Chaque type a un coefficient pour le prix en dollars et un autre pour le prix
+ * en miles.
+ *
+ * @author Alexandre Jaquier
+ * @author Valentin Kaelin
+ */
+public enum TicketType {
+    Economy(1, 1), Business(2, 5), FirstClass(5, 30);
+    
+    private final int priceCoeff;
+    private final int milesCoeff;
+    
+    /**
+     * Constructeur privé pour créer un élément de l'Enum
+     *
+     * @param priceCoeff : coefficient pour le prix en dollars
+     * @param milesCoeff : coefficient pour le prix en miles
+     */
+    private TicketType(int priceCoeff, int milesCoeff) {
+        this.priceCoeff = priceCoeff;
+        this.milesCoeff = milesCoeff;
+    }
+    
+    /**
+     * @return le coefficient pour le prix en dollars
+     */
+    public int getCoeffPrice() {
+        return priceCoeff;
+    }
+    
+    /**
+     * @return le coefficient pour le prix en miles
+     */
+    public int getCoeffMiles() {
+        return milesCoeff;
+    }
+}
+
+package display;
+
+import account.Client;
+import flights.Flight;
+import flights.Ticket;
+import flights.TicketType;
+
+import javax.swing.*;
+import java.awt.*;
+
+/**
+ * Fenêtre principale de l'application
+ *
+ * @author Alexandre Jaquier
+ * @author Valentin Kaelin
+ */
+public class MainWindow {
+    private static final int INITIAL_WIDTH = 700;
+    private static final int INITIAL_HEIGHT = 200;
+    
+    private final JFrame frame;
+    
+    private final Client[] clients;
+    private final Flight[] flights;
+    
+    private JComboBox<Flight> cbFlights;
+    private JComboBox<Ticket> cbTickets;
+    
+    /**
+     * Crée les différents composants de la fenêtre
+     */
+    private void createComponents() {
+        // MainPanel
+        JPanel mainPanel = new JPanel();
+        mainPanel.setBackground(Color.WHITE);
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+        frame.setContentPane(mainPanel);
+        
+        // Client
+        JPanel clientPanel = new JPanel();
+        JLabel lbClient = new JLabel("Client");
+        JComboBox<Client> cbAccounts = new JComboBox<>(clients);
+        JButton btnDetailsClient = new JButton("Details");
+        btnDetailsClient.addActionListener(e -> {
+            Client client = clients[cbAccounts.getSelectedIndex()];
+            client.attach(new DetailsClientWindow(client));
+        });
+        clientPanel.add(lbClient);
+        clientPanel.add(cbAccounts);
+        clientPanel.add(btnDetailsClient);
+        mainPanel.add(clientPanel);
+        
+        // Credits
+        JPanel creditsPanel = new JPanel();
+        JLabel lbCredits = new JLabel("Credits");
+        JTextField txtCredits = new JTextField(10);
+        JButton btnAddCreditsClient = new JButton("Add");
+        btnAddCreditsClient.addActionListener(e -> {
+            Client client = clients[cbAccounts.getSelectedIndex()];
+            double amount;
+            try {
+                amount = Double.parseDouble(txtCredits.getText());
+            } catch (NumberFormatException ignored) {
+                return;
+            }
+            client.deposit(amount);
+            txtCredits.setText("");
+        });
+        creditsPanel.add(lbCredits);
+        creditsPanel.add(txtCredits);
+        creditsPanel.add(btnAddCreditsClient);
+        mainPanel.add(creditsPanel);
+        
+        // Flight
+        JPanel flightPanel = new JPanel();
+        JLabel lbFlight = new JLabel("Flight");
+        cbFlights = new JComboBox<>(flights);
+        cbTickets = new JComboBox<>();
+        cbFlights.addItemListener(e -> updateTicketTypes());
+        updateTicketTypes();
+        
+        JButton btnBookCashFlight = new JButton("Book (cash)");
+        btnBookCashFlight.addActionListener(e -> {
+            Client client = clients[cbAccounts.getSelectedIndex()];
+            client.payFlightMoney((Ticket) cbTickets.getSelectedItem());
+        });
+        JButton btnBookMilesFlight = new JButton("Book (miles)");
+        btnBookMilesFlight.addActionListener(e -> {
+            Client client = clients[cbAccounts.getSelectedIndex()];
+            client.payFlightMiles((Ticket) cbTickets.getSelectedItem());
+        });
+        flightPanel.add(lbFlight);
+        flightPanel.add(cbFlights);
+        flightPanel.add(cbTickets);
+        flightPanel.add(btnBookCashFlight);
+        flightPanel.add(btnBookMilesFlight);
+        mainPanel.add(flightPanel);
+        
+        // Buttons
+        JPanel buttonsPanel = new JPanel();
+        JButton btnStatuses = new JButton("Statuses");
+        btnStatuses.addActionListener(e -> {
+            StatusClientWindow p = new StatusClientWindow(clients);
+            for (Client c : clients) {
+                c.attach(p);
+            }
+        });
+        JButton btnQuit = new JButton("Quit");
+        btnQuit.addActionListener(e -> System.exit(0));
+        buttonsPanel.add(btnStatuses);
+        buttonsPanel.add(btnQuit);
+        mainPanel.add(buttonsPanel);
+    }
+    
+    /**
+     * Met à jour les valeurs de la ComboBox contenant les tickets
+     */
+    private void updateTicketTypes() {
+        Flight flight = (Flight) cbFlights.getSelectedItem();
+        cbTickets.removeAllItems();
+        for (TicketType type : TicketType.values()) {
+            cbTickets.addItem(new Ticket(flight, type));
+        }
+    }
+    
+    /**
+     * Crée une fenêtre principale de l'application
+     *
+     * @param clients : les clients de l'application
+     * @param flights : les vols disponibles dans l'application
+     */
+    public MainWindow(Client[] clients, Flight[] flights) {
+        this.clients = clients;
+        this.flights = flights;
+        
+        frame = new JFrame();
+        frame.setSize(INITIAL_WIDTH, INITIAL_HEIGHT);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setTitle("Clients Manager");
+        
+        createComponents();
+        
+        frame.setVisible(true);
+    }
+}
+
+package display;
+
+import account.Client;
+import observers.Observer;
+import observers.Subject;
+
+import javax.swing.*;
+import java.awt.*;
+
+/**
+ * Fenêtre affichant les détails d'un client
+ *
+ * @author Alexandre Jaquier
+ * @author Valentin Kaelin
+ */
+public class DetailsClientWindow implements Observer {
+    private static final int INITIAL_WIDTH = 700;
+    private static final int INITIAL_HEIGHT = 250;
+    
+    private final JLabel lbCreditsContent;
+    private final JLabel lbMilesContent;
+    private final JLabel lbStatusContent;
+    private final JLabel lbLastActionContent;
+    
+    /**
+     * Crée une fenêtre affichant les détails du client souhaité
+     *
+     * @param client : client sélectionné
+     */
+    public DetailsClientWindow(Client client) {
+        JFrame frame = new JFrame();
+        frame.setSize(INITIAL_WIDTH, INITIAL_HEIGHT);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setTitle("Details of client #" + client.getId());
+        
+        JPanel mainPanel = new JPanel();
+        mainPanel.setBackground(Color.WHITE);
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+        
+        // Nom de famille
+        JPanel lastNamePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JLabel lbLastName = new JLabel("Last name :");
+        JLabel lbLastNameContent = new JLabel(client.getLastName());
+        lastNamePanel.add(lbLastName);
+        lastNamePanel.add(lbLastNameContent);
+        mainPanel.add(lastNamePanel);
+        
+        // Prénom
+        JPanel firstNamePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JLabel lbFirstName = new JLabel("First name :");
+        JLabel lbFirstNameContent = new JLabel(client.getFirstName());
+        firstNamePanel.add(lbFirstName);
+        firstNamePanel.add(lbFirstNameContent);
+        mainPanel.add(firstNamePanel);
+        
+        // Crédits
+        JPanel creditsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JLabel lbCredits = new JLabel("Credits :");
+        lbCreditsContent = new JLabel(String.valueOf(client.getBalance()));
+        creditsPanel.add(lbCredits);
+        creditsPanel.add(lbCreditsContent);
+        mainPanel.add(creditsPanel);
+        
+        // Miles
+        JPanel milesPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JLabel lbMiles = new JLabel("Nb miles :");
+        lbMilesContent = new JLabel(String.valueOf(client.getMiles()));
+        milesPanel.add(lbMiles);
+        milesPanel.add(lbMilesContent);
+        mainPanel.add(milesPanel);
+        
+        // Status
+        JPanel statusPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JLabel lbStatus = new JLabel("Status :");
+        lbStatusContent = new JLabel(String.valueOf(client.getActualStateToString()));
+        statusPanel.add(lbStatus);
+        statusPanel.add(lbStatusContent);
+        mainPanel.add(statusPanel);
+        
+        // Dernière action
+        JPanel lastActionPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JLabel lbLastAction = new JLabel("Last action :");
+        lbLastActionContent = new JLabel(client.getLastAction());
+        lastActionPanel.add(lbLastAction);
+        lastActionPanel.add(lbLastActionContent);
+        mainPanel.add(lastActionPanel);
+        
+        frame.setContentPane(mainPanel);
+        frame.setVisible(true);
+    }
+    
+    @Override
+    public void update(Subject subject) {
+        Client client = (Client) subject;
+        lbCreditsContent.setText(String.valueOf(client.getBalance()));
+        lbMilesContent.setText(String.valueOf(client.getMiles()));
+        lbStatusContent.setText(String.valueOf(client.getActualStateToString()));
+        lbLastActionContent.setText(client.getLastAction());
+    }
+}
+
+package display;
+
+import account.Client;
+import observers.Observer;
+import observers.Subject;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.HashMap;
+
+/**
+ * Fenêtre affichant le status de chaque client de l'application
+ *
+ * @author Alexandre Jaquier
+ * @author Valentin Kaelin
+ */
+public class StatusClientWindow implements Observer {
+    private static final int INITIAL_WIDTH = 500;
+    private static final int INITIAL_HEIGHT = 250;
+    
+    private final HashMap<Integer, JLabel> labels;
+    
+    /**
+     * Crée une fenêtre affichant le status de chaque client
+     *
+     * @param clients : les clients de l'application
+     */
+    public StatusClientWindow(Client[] clients) {
+        JFrame frame = new JFrame();
+        frame.setSize(INITIAL_WIDTH, INITIAL_HEIGHT);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setTitle("Statuses");
+        
+        labels = new HashMap<>();
+        
+        JPanel mainPanel = new JPanel();
+        mainPanel.setBackground(Color.WHITE);
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+        
+        for (Client client : clients) {
+            JLabel lbStatus = new JLabel(client.toStringDetailed());
+            lbStatus.setForeground(client.getColor());
+            mainPanel.add(lbStatus);
+            labels.put(client.getId(), lbStatus);
+        }
+        
+        frame.setContentPane(mainPanel);
+        frame.setVisible(true);
+    }
+    
+    @Override
+    public void update(Subject subject) {
+        Client client = (Client) subject;
+        labels.get(client.getId()).setForeground(client.getColor());
+        labels.get(client.getId()).setText(client.toStringDetailed());
+    }
+}
